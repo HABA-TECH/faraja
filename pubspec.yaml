@@ -44,14 +44,14 @@ flavorizr:
   flavors:
     dev:
       app:
-        name: "Dev App"
+        name: "Haba Dev"
       android:
         applicationId: "com.example.dev"
       ios:
         bundleId: "com.example.dev"
     live:
       app:
-        name: "Live App"
+        name: "Haba Live"
       android:
         applicationId: "com.example.live"
       ios:

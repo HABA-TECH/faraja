@@ -1,6 +1,6 @@
 #include "Generated.xcconfig"
 
 FLUTTER_TARGET=lib/main_live.dart
-ASSET_PREFIX=live
-BUNDLE_NAME=Live App
-BUNDLE_DISPLAY_NAME=Live App
+ASSET_PREFIX=live 
+BUNDLE_NAME=Haba Dev
+BUNDLE_DISPLAY_NAME=Haba Dev

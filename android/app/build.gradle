@@ -34,12 +34,12 @@ android {
         dev {
             dimension "flavor-type"
             applicationId "com.example.dev"
-            resValue "string", "app_name", "Dev App"
+            resValue "string", "app_name", "Haba Dev"
         }
         live {
             dimension "flavor-type"
             applicationId "com.example.live"
-            resValue "string", "app_name", "Live App"
+            resValue "string", "app_name", "Haba Live"
         }
     }
 
