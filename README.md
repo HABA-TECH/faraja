@@ -1,6 +1,8 @@
 # Haba: Automate Your Finances
 
-![logowithname](https://user-images.githubusercontent.com/55794066/236267273-4cd0354d-c9b8-449f-92ef-5a96cf7c87da.png)
+![logowithname](https://user-images.githubusercontent.com/55794066/236267746-b663a617-4d82-44b2-af4d-bfccfafc7e7f.png)
+
+
 
 Haba is a Flutter project that aims to revolutionize financial automation for individuals and businesses. It offers a comprehensive solution to automate financial tasks, providing convenience and efficiency in managing your finances.
 
