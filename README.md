@@ -1,5 +1,6 @@
 # Haba: Automate Your Finances
 
+
 Haba is a Flutter project that aims to revolutionize financial automation for individuals and businesses. It offers a comprehensive solution to automate financial tasks, providing convenience and efficiency in managing your finances.
 
 ## Introduction
@@ -18,7 +19,7 @@ To get started with Haba, follow the steps below:
 1. Open a terminal and navigate to the directory where you want to clone the project.
 2. Run the following command to clone the repository:
 
-git clone https://github.com/HABA-TECH/haba-mobile
+`git clone https://github.com/HABA-TECH/haba-mobile`
 
 
 ### Project Structure
@@ -39,11 +40,11 @@ The Haba Flutter project follows the following structure:
 Haba offers two flavors: `dev` and `live`. To run the app with the respective flavors, use the following commands:
 
 - For the `dev` flavor:
-flutter run --flavor dev -t lib/main_dev.dart
+`flutter run --flavor dev -t lib/main_dev.dart`
 
 
 - For the `live` flavor:
-flutter run --flavor live -t lib/main_live.dart
+`flutter run --flavor live -t lib/main_live.dart`
 
 
 Make sure you have a compatible device or simulator connected to your development environment.
