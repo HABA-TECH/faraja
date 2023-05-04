@@ -1,6 +1,6 @@
 # Haba: Automate Your Finances
 
-![logowithname](https://user-images.githubusercontent.com/55794066/236267746-b663a617-4d82-44b2-af4d-bfccfafc7e7f.png)
+![logo](https://user-images.githubusercontent.com/55794066/236268074-c25cf5bc-ad6e-4e6c-8468-a7708ce6bdc9.png)
 
 
 
