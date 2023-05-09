@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:haba/providers/user_provider.dart';
-import 'package:haba/screens/my_home_page.dart';
+import 'package:haba/screens/onboarding/onboarding_main.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
@@ -17,7 +16,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage(),
+        debugShowCheckedModeBanner: false,
+        home: const OnboardingScreen(),
       ),
     );
   }
