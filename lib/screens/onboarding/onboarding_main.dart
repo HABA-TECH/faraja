@@ -59,11 +59,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   elevation: 0,
                 ),
-                child: showSkip ? const Text(
+                child: showSkip ? Text(
                   "Next",
-                  style: TextStyle(
-                    fontSize: 23,
-                  ),
+                  style: TextStyles.normal(20),
                 ) :  Text(
                   "Get Started",
                   style: TextStyles.normal(20)
@@ -71,11 +69,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
               const SizedBox(height: 10),
               showSkip
-                  ? const Text(
+                  ?  Text(
                       "Skip",
-                      style: TextStyle(
-                        fontSize: 22,
-                      ),
+                      style: TextStyles.normal(20),
                     )
                   : const Offstage(),
             ],
