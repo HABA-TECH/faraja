@@ -39,7 +39,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Haba ${F.name}'),
+        title:  Text('Haba ${F.name}',
+        style: TextStyle(
+          color: Theme.of(context).primaryColor,
+        ),
+        ),
       ),
       body: Center(
         child: Column(

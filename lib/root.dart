@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:haba/providers/user_provider.dart';
 import 'package:haba/screens/onboarding/onboarding_main.dart';
+import 'package:haba/utils/AppTheme.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
@@ -15,9 +16,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Your App',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: AppTheme.lightTheme,
         debugShowCheckedModeBanner: false,
         home: const OnboardingScreen(),
       ),

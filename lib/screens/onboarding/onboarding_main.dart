@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:haba/utils/AppTheme.dart';
+import 'package:haba/utils/TextStyles.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:lottie/lottie.dart';
 
@@ -74,30 +75,71 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           horizontal: 30, vertical: 20),
                       child: Lottie.asset('assets/lottie/saving-money.json'),
                     ),
-                    const Text(
-                      "Little by",
-                      style: TextStyle(fontSize: 50),
-                    ),
-                    const Text(
-                      "Little fills",
-                      style: TextStyle(fontSize: 50),
-                    ),
-                    const Text(
-                      "the pot",
-                      style: TextStyle(fontSize: 50),
-                    ),
-                    const Text(
-                      "Swahili riddle",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    const Text(
-                      '"Haba na haba hujaza kibaba"',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    const Text(
-                      "Haba allows you to alocate small income towards your savings,investments and other expenses without a hassle",
-                      style: TextStyle(fontSize: 20),
-                    ),
+                    Row(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 1.4,
+                            height: 150,
+                            color: Colors.lightBlue,
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 18.0),
+                                        child: Text(
+                                          'Little by',
+                                          style: TextStyles.h1(),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 50.0),
+                                    child: Text(
+                                      'Little fills',
+                                      style: TextStyles.h1(),
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 50.0),
+                                    child: Text(
+                                      'the pot',
+                                      style: TextStyles.h1(),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          color: Colors.red,
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: SvgPicture.asset(
+                              'assets/icons/sparkle.svg',
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+
+                    // const Text(
+                    //   "Haba allows you to alocate small income towards your savings,investments and other expenses without a hassle",
+                    //   style: TextStyle(fontSize: 20),
+                    // ),
                   ],
                 ),
               ),
@@ -116,17 +158,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           horizontal: 30, vertical: 20),
                       child: Lottie.asset('assets/lottie/tracker.json'),
                     ),
-                    const Text(
+                    Text(
                       "Track your",
-                      style: TextStyle(fontSize: 50),
+                      style: TextStyles.h1(),
                     ),
-                    const Text(
+                    Text(
                       "Expenses",
-                      style: TextStyle(fontSize: 50),
+                      style: TextStyles.h1(),
                     ),
-                    const Text(
+                    Text(
                       'Haba analytics allows you to see how much you spend on every expense in detail',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyles.normal(),
                     ),
                   ],
                 ),
@@ -141,13 +183,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   SvgPicture.asset(
                     'assets/icons/circles.svg',
                   ),
-                  const Center(
+                   Center(
                     child: Text(
                       "Third Screen",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyles.h2(),
+                      
                     ),
                   ),
                 ],
