@@ -14,6 +14,7 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  final introKey = GlobalKey<IntroductionScreenState>();
   @override
   void initState() {
     super.initState();
@@ -25,16 +26,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     FlutterNativeSplash.remove();
   }
 
+  bool showSkip = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: SafeArea(
         child: IntroductionScreen(
+          key: introKey,
+          onChange: (value) {
+            if (value == 2) {
+              setState(() {
+                 showSkip = false;
+              });
+            }else{
+              setState(() {
+                 showSkip = true;
+              });
+            }
+          },
           globalFooter: Column(
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  introKey.currentState?.next();
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppTheme.primaryColor,
                   minimumSize: const Size(250, 40),
@@ -43,20 +59,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   elevation: 0,
                 ),
-                child: const Text(
+                child: showSkip ? Text(
                   "Next",
-                  style: TextStyle(
-                    fontSize: 23,
-                  ),
+                  style: TextStyles.normal(20),
+                ) :  Text(
+                  "Get Started",
+                  style: TextStyles.normal(20)
                 ),
               ),
               const SizedBox(height: 10),
-              const Text(
-                "Skip",
-                style: TextStyle(
-                  fontSize: 22,
-                ),
-              )
+              showSkip
+                  ?  Text(
+                      "Skip",
+                      style: TextStyles.normal(20),
+                    )
+                  : const Offstage(),
             ],
           ),
           curve: Curves.bounceInOut,
@@ -71,80 +88,104 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 20),
-                      child: Lottie.asset('assets/lottie/saving-money.json'),
-                    ),
-                    Container(
-                      color: Colors.red,
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 40.0),
-                          child: SvgPicture.asset(
-                            'assets/icons/sparkle.svg',
-                          ),
-                        ),
+                      padding: const EdgeInsets.symmetric(horizontal: 30)
+                          .copyWith(top: 10),
+                      child: Lottie.asset(
+                        'assets/lottie/saving-money.json',
+                        height: MediaQuery.of(context).size.height / 2.5,
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width / 1.1,
-                        height: 400,
-                        color: Colors.lightBlue,
-                        child: Column(
-                          children: [
-                            Row(
+                    Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            // color: Colors.lightBlue,
+                            width: MediaQuery.of(context).size.width / 1.1,
+                            height: 400,
+                            child: Column(
                               children: [
                                 Align(
                                   alignment: Alignment.topLeft,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(top: 18.0),
+                                    padding: const EdgeInsets.only(top: 20.0),
                                     child: Text(
                                       'Little by',
                                       style: TextStyles.normal(54),
                                     ),
                                   ),
                                 ),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 5.0),
+                                    child: Text(
+                                      'Little fills',
+                                      style: TextStyles.normal(54),
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 5.0),
+                                    child: Text(
+                                      'the pot',
+                                      style: TextStyles.normal(54),
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 10.0),
+                                    child: Text(
+                                      "Swahili Riddle",
+                                      style: TextStyles.light(18),
+                                      softWrap: true,
+                                      maxLines: 3,
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 10.0),
+                                    child: Text(
+                                      '"Haba na haba hujaza kibaba"',
+                                      style: TextStyles.normalItalic(18),
+                                      softWrap: true,
+                                      maxLines: 3,
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 10.0),
+                                    child: Text(
+                                      'Haba allows you to allocate small income towards your savings,investment and other expenses without a hassle',
+                                      style: TextStyles.normal(20),
+                                      softWrap: true,
+                                      maxLines: 3,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 50.0),
-                                child: Text(
-                                  'Little fills',
-                                  style: TextStyles.normal(54),
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 50.0),
-                                child: Text(
-                                  'the pot',
-                                  style: TextStyles.normal(54),
-                                ),
-                              ),
-                            ),
-                            // Align(
-                            //   alignment: Alignment.centerLeft,
-                            //   child: Padding(
-                            //     padding: const EdgeInsets.only(top:50.0),
-                            //     child: Text(
-                            //       "Haba allows you to allocate",
-                            //       style: TextStyles.normal(20),
-                            //       softWrap: true,
-                            //       maxLines: 3,
-                            //     ),
-                            //   ),
-                            // ),
-                                
-                          ],
+                          ),
                         ),
-                      ),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 50.0),
+                            child: SvgPicture.asset(
+                              'assets/icons/sparkle.svg',
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -160,21 +201,66 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 20),
-                      child: Lottie.asset('assets/lottie/tracker.json'),
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Lottie.asset(
+                        'assets/lottie/tracker.json',
+                        height: MediaQuery.of(context).size.height / 2.5,
+                      ),
                     ),
-                    Text(
-                      "Track your",
-                      style: TextStyles.h1(),
-                    ),
-                    Text(
-                      "Expenses",
-                      style: TextStyles.h1(),
-                    ),
-                    Text(
-                      'Haba analytics allows you to see how much you spend on every expense in detail',
-                      style: TextStyles.normal(),
+                    Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Container(
+                            // color: Colors.lightBlue,
+                            width: MediaQuery.of(context).size.width / 1.1,
+                            height: 300,
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 20.0),
+                                    child: Text(
+                                      'Track your',
+                                      style: TextStyles.normal(54),
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 5.0),
+                                    child: Text(
+                                      'expenses',
+                                      style: TextStyles.normal(54),
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 40.0),
+                                    child: Text(
+                                      'Haba analytics allows you to see how much you spend on every expense in detail',
+                                      style: TextStyles.normal(20),
+                                      softWrap: true,
+                                      maxLines: 3,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: SvgPicture.asset(
+                            'assets/icons/sparkle.svg',
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -182,18 +268,80 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             Container(
               color: AppTheme.primaryDark,
+              // color: Colors.white,
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
                   SvgPicture.asset(
                     'assets/icons/circles.svg',
+                    height: MediaQuery.of(context).size.height / 2.1,
                   ),
-                  Center(
-                    child: Text(
-                      "Third Screen",
-                      style: TextStyles.h2(),
-                    ),
+                  Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Container(
+                          // color: Colors.lightBlue,
+                          width: MediaQuery.of(context).size.width / 1.1,
+                          height: 300,
+                          padding: const EdgeInsets.only(left: 30),
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: Text(
+                                    'Automate',
+                                    style: TextStyles.normal(54).copyWith(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 5.0),
+                                  child: Text(
+                                    'your',
+                                    style: TextStyles.normal(54).copyWith(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: Text(
+                                    'Payments',
+                                    style: TextStyles.normal(54).copyWith(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 30.0),
+                                  child: Text(
+                                    'Integrate once, Forget about it.\nHaba allows you to auto-pay your expenses while you focus on important things.',
+                                    style: TextStyles.normal(20).copyWith(color: Colors.white),
+                                    softWrap: true,
+                                    maxLines: 3,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 15,
+                        child: SvgPicture.asset(
+                          'assets/icons/sparkle.svg',
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -215,7 +363,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           controlsPosition: const Position(left: 0, right: 0, bottom: 30),
           dotsFlex: 2,
-          onChange: (value) => print("changed $value"),
         ),
       ),
     );
