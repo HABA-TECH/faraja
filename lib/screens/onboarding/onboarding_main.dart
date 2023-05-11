@@ -75,71 +75,77 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           horizontal: 30, vertical: 20),
                       child: Lottie.asset('assets/lottie/saving-money.json'),
                     ),
-                    Row(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 1.4,
-                            height: 150,
-                            color: Colors.lightBlue,
-                            child: Column(
+                    Container(
+                      color: Colors.red,
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 40.0),
+                          child: SvgPicture.asset(
+                            'assets/icons/sparkle.svg',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        height: 400,
+                        color: Colors.lightBlue,
+                        child: Column(
+                          children: [
+                            Row(
                               children: [
-                                Row(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 18.0),
-                                        child: Text(
-                                          'Little by',
-                                          style: TextStyles.h1(),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
                                 Align(
                                   alignment: Alignment.topLeft,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(top: 50.0),
+                                    padding: const EdgeInsets.only(top: 18.0),
                                     child: Text(
-                                      'Little fills',
-                                      style: TextStyles.h1(),
-                                    ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 50.0),
-                                    child: Text(
-                                      'the pot',
-                                      style: TextStyles.h1(),
+                                      'Little by',
+                                      style: TextStyles.normal(54),
                                     ),
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                        ),
-                        Container(
-                          color: Colors.red,
-                          child: Align(
-                            alignment: Alignment.topCenter,
-                            child: SvgPicture.asset(
-                              'assets/icons/sparkle.svg',
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 50.0),
+                                child: Text(
+                                  'Little fills',
+                                  style: TextStyles.normal(54),
+                                ),
+                              ),
                             ),
-                          ),
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 50.0),
+                                child: Text(
+                                  'the pot',
+                                  style: TextStyles.normal(54),
+                                ),
+                              ),
+                            ),
+                            // Align(
+                            //   alignment: Alignment.centerLeft,
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.only(top:50.0),
+                            //     child: Text(
+                            //       "Haba allows you to allocate",
+                            //       style: TextStyles.normal(20),
+                            //       softWrap: true,
+                            //       maxLines: 3,
+                            //     ),
+                            //   ),
+                            // ),
+                                
+                          ],
                         ),
-                      ],
-                    )
-
-                    // const Text(
-                    //   "Haba allows you to alocate small income towards your savings,investments and other expenses without a hassle",
-                    //   style: TextStyle(fontSize: 20),
-                    // ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -183,11 +189,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   SvgPicture.asset(
                     'assets/icons/circles.svg',
                   ),
-                   Center(
+                  Center(
                     child: Text(
                       "Third Screen",
                       style: TextStyles.h2(),
-                      
                     ),
                   ),
                 ],
