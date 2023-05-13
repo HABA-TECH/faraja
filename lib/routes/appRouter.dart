@@ -7,6 +7,7 @@ import 'package:logger/logger.dart';
 class AppRouter {
   static const String splashScreenRoute = "/onboarding";
   static const String homeRoute = "/home";
+  static const String register = "/register";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final _args = settings.arguments;
@@ -16,30 +17,35 @@ class AppRouter {
     switch (settings.name) {
       case splashScreenRoute:
         return _route(
-          OnboardingOverview(),
+         const OnboardingOverview(),
           splashScreenRoute,
         );
-        break;
+     
       case homeRoute:
         return _route(
           const MyHomePage(),
           homeRoute,
         );
-        break;
-
+        
+          case register:
+        return _route(
+          const MyHomePage(),
+          register,
+        );
+      
       default:
         return _route(
           Scaffold(
             appBar: AppBar(
-              title: Text('Haba'),
+              title: const Text('Haba'),
             ),
-            body: Center(
-              child: Text('Unknown page'),
+            body:const Center(
+              child:  Text('Unknown page'),
             ),
           ),
           "unknown",
         );
-        break;
+     
     }
   }
 
