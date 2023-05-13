@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:haba/screens/auth/register.dart';
 import 'package:haba/screens/my_home_page.dart';
 import 'package:haba/screens/onboarding/onboarding_main.dart';
 import 'package:logger/logger.dart';
@@ -29,7 +30,7 @@ class AppRouter {
         
           case register:
         return _route(
-          const MyHomePage(),
+          const Register(),
           register,
         );
       

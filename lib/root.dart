@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:haba/providers/user_provider.dart';
-import 'package:haba/routes/approuter.dart';
+import 'package:haba/routes/appRouter.dart';
 import 'package:haba/screens/onboarding/onboarding_main.dart';
 import 'package:haba/utils/AppTheme.dart';
 import 'package:provider/provider.dart';

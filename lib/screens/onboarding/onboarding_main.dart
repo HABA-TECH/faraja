@@ -1,11 +1,12 @@
 import 'package:cupertino_onboarding/cupertino_onboarding.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:haba/routes/approuter.dart';
 import 'package:haba/utils/AppTheme.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:logger/logger.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
+
+import '../../routes/appRouter.dart';
 
 class OnboardingOverview extends StatelessWidget {
   const OnboardingOverview({
@@ -17,7 +18,7 @@ class OnboardingOverview extends StatelessWidget {
     Logger logger = Logger();
     return CupertinoOnboarding(
       onPressedOnLastPage: () {
-        Navigator.popAndPushNamed(context, AppRouter.homeRoute);
+        Navigator.popAndPushNamed(context, AppRouter.register);
         logger.i('To Register screen');
       },
       bottomButtonColor: AppTheme.primaryColor,
