@@ -8,7 +8,7 @@ class AppTheme {
   static const Color secondaryColor = Color(0xFFE7E4FD);
   static const Color greyButtonColor = Color(0xFFD9D9D9);
   static const Color primaryDark = Color(0xFF060032);
- 
+  static const Color hintTextColor = Color(0xFF575757);
 
   static final ThemeData lightTheme = ThemeData(
     primaryColor: primaryColor,

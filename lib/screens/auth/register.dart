@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:haba/screens/auth/widgets/custom_textfield.dart';
+import 'package:haba/utils/AppTheme.dart';
 import 'package:haba/utils/colors.dart';
 
 import '../../utils/TextStyles.dart';
@@ -27,77 +29,132 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "REGISTER",
-                style: TextStyles.normal(25),
-              ),
-              const SizedBox(height: 60),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Email",
-                        style: TextStyles.normal(20),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    CustomTextField(
-                      hintText: "eg john@mail.com",
-                      controller: emailController,
-                      inputType: TextInputType.emailAddress,
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Password",
-                        style: TextStyles.normal(20),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    CustomTextField(
-                      hintText: "Password",
-                      controller: passwordController,
-                      isPassword: true,
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                "It must contain not less than 8 characters",
-              ),
-              const SizedBox(height: 30),
-              CustomButton(
-                onPressed: () {},
-                buttonText: "Register",
-                radius: 30,
-                width: MediaQuery.of(context).size.width,
-                height: 45,
-              ),
-            ],
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(
+              color: Colors.blueGrey,
+            ),
           ),
-        ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.59,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.5),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 20),
+                    Text(
+                      "REGISTER",
+                      style: TextStyles.normal(23),
+                    ),
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Email",
+                              style: TextStyles.normal(18),
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          CustomTextField(
+                            hintText: "eg john@mail.com",
+                            controller: emailController,
+                            inputType: TextInputType.emailAddress,
+                            obscureText: false,
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Password",
+                              style: TextStyles.normal(18),
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          CustomTextField(
+                            hintText: "Password",
+                            controller: passwordController,
+                            obscureText: true,
+                          )
+                        ],
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          "It must contain not less than 8 characters",
+                          style: TextStyles.normal().copyWith(
+                            color: AppTheme.hintTextColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: RichText(
+                          text: TextSpan(
+                            text: 'Already have an account? ',
+                            style: TextStyles.normal(15).copyWith(
+                              color: const Color(0xFF211212),
+                            ),
+                            children: [
+                              TextSpan(
+                                text: 'login',
+                                style: TextStyles.normal(15).copyWith(
+                                  color: AppTheme.primaryColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    CustomButton(
+                      onPressed: () {},
+                      buttonText: "Register",
+                      radius: 25,
+                      width: MediaQuery.of(context).size.width,
+                      height: 50,
+                    ),
+                    const SizedBox(height: 10),
+                    const Text("Or Sign Up with"),
+                    //TODO: socials login icons
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

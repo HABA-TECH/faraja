@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:haba/utils/TextStyles.dart';
-import 'package:haba/utils/colors.dart';
 
 class CustomButton extends StatelessWidget {
-  void Function()? onPressed;
+  final void Function()? onPressed;
   final String buttonText;
   final double height;
   final double width;
   final double radius;
-  CustomButton({
+  const CustomButton({
     super.key,
     required this.onPressed,
     required this.buttonText,
@@ -19,7 +18,7 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle textButtonStyle = TextButton.styleFrom(
+    final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
       backgroundColor: Theme.of(context).primaryColor,
       minimumSize: Size(width, height),
       shape: RoundedRectangleBorder(
@@ -32,13 +31,15 @@ class CustomButton extends StatelessWidget {
         width: width,
         child: Padding(
           padding: const EdgeInsets.all(0),
-          child: TextButton(
+          child: ElevatedButton(
             onPressed: onPressed,
-            style: textButtonStyle,
+            style: buttonStyle,
             child: Text(
               buttonText,
               textAlign: TextAlign.center,
-              style: TextStyles.normal(30).copyWith(color: Colors.white),
+              style: TextStyles.normal(28).copyWith(
+                color: Colors.white,
+              ),
             ),
           ),
         ),
