@@ -9,14 +9,14 @@ import 'package:haba/utils/widgets/translucentBG.dart';
 import '../../utils/TextStyles.dart';
 import '../../utils/widgets/custom_button.dart';
 
-class Register extends StatefulWidget {
-  const Register({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<Login> createState() => _LoginState();
 }
 
-class _RegisterState extends State<Register> {
+class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -46,7 +46,7 @@ class _RegisterState extends State<Register> {
                     alignment: Alignment.topCenter,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 20.0),
-                      child: Text("REGISTER", style: TextStyles.h2(20)),
+                      child: Text("LOGIN", style: TextStyles.h2(20)),
                     ),
                   ),
                   Padding(
@@ -69,40 +69,12 @@ class _RegisterState extends State<Register> {
                       obscureText: false,
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 5.0),
-                      child: Text(
-                        "It must contain not less than 8 characters",
-                        style: TextStyles.h1(12, Colors.grey[800]),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Already have an account?  ",
-                            style: TextStyles.h1(12, Colors.grey[800]),
-                          ),
-                          Text(
-                            "Login",
-                            style: TextStyles.h1(12, AppColors.primaryColor),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 40.0),
+                    padding: const EdgeInsets.only(top: 55.0),
                     child: CustomButton(
-                      buttonText: 'Register',
+                      buttonText: 'Login',
                       onPressed: () {
-                        Navigator.pushNamed(context, AppRouter.personal_Info);
+                        Navigator.pushReplacementNamed(context, AppRouter.dash);
                       },
                       width: MediaQuery.of(context).size.width * .9,
                       height: 50,

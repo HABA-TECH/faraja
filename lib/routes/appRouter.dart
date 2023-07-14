@@ -1,14 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:haba/screens/auth/login.dart';
+import 'package:haba/screens/auth/otp_screen.dart';
+import 'package:haba/screens/auth/personal_info.dart';
 import 'package:haba/screens/auth/register.dart';
-import 'package:haba/screens/my_home_page.dart';
+import 'package:haba/screens/dash.dart';
 import 'package:haba/screens/onboarding/onboarding_main.dart';
 import 'package:logger/logger.dart';
 
 class AppRouter {
   static const String splashScreenRoute = "/onboarding";
-  static const String homeRoute = "/home";
+  static const String dash = "/home";
   static const String register = "/register";
+  static const String login = "/login";
+  static const String personal_Info = "/personal_Info";
+  static const String otpField = "/otpField";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final _args = settings.arguments;
@@ -22,10 +28,26 @@ class AppRouter {
           splashScreenRoute,
         );
      
-      case homeRoute:
+      case dash:
         return _route(
-          const MyHomePage(),
-          homeRoute,
+          Dashboard(),
+          dash,
+        );
+      case personal_Info:
+        return _route(
+          const PersonalInfo(),
+          personal_Info,
+        );
+        
+      case otpField:
+        return _route(
+          const OTPScreen(),
+          otpField,
+        );
+      case login:
+        return _route(
+          const Login(),
+          login,
         );
         
           case register:

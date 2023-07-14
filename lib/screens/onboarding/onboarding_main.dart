@@ -18,7 +18,7 @@ class OnboardingOverview extends StatelessWidget {
     Logger logger = Logger();
     return CupertinoOnboarding(
       onPressedOnLastPage: () {
-        Navigator.popAndPushNamed(context, AppRouter.register);
+        Navigator.popAndPushNamed(context, AppRouter.dash);
         logger.i('To Register screen');
       },
       bottomButtonColor: AppTheme.primaryColor,
@@ -27,7 +27,7 @@ class OnboardingOverview extends StatelessWidget {
         Align(
           child: WhatsNewPage(
             title: Text(
-              "Little by Little \nfills the pot",
+              "Low\ninterest",
               textAlign: TextAlign.center,
               style: TextStyles.h2(35),
             ),
@@ -40,22 +40,22 @@ class OnboardingOverview extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 30)
                       .copyWith(top: 10),
                   child: Lottie.asset(
-                    'assets/lottie/saving-money.json',
+                    'assets/lottie/tracker.json',
                     height: MediaQuery.of(context).size.height / 2.5,
                   ),
                 ),
               ),
               const WhatsNewFeature(
-                title: Text('Swahili Riddle'),
+                title: Text('Low interest rates'),
                 description: Text(
-                  'Haba na haba hujaza kibaba',
+                  '',
                 ),
                 icon:
                     Icon(CupertinoIcons.sparkles, color: AppTheme.primaryColor),
               ),
               const WhatsNewFeature(
                 title: Text(
-                  "Haba allows you to allocate small income towards your savings,investment and other expenses without a hassle",
+                  "Faraja Credit allows you to get quick loans with low interest rates",
                 ),
                 description: Text(''),
                 icon: Icon(
@@ -71,7 +71,7 @@ class OnboardingOverview extends StatelessWidget {
         Align(
           child: WhatsNewPage(
             title: Text(
-              "Track your Expenses",
+              "Easy Quick access to loans",
               textAlign: TextAlign.center,
               style: TextStyles.h2(35),
             ),
@@ -84,13 +84,13 @@ class OnboardingOverview extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 30)
                       .copyWith(top: 10),
                   child: Lottie.asset(
-                    'assets/lottie/tracker.json',
+                    'assets/lottie/saving-money.json',
                     height: MediaQuery.of(context).size.height / 2.5,
                   ),
                 ),
               ),
               const WhatsNewFeature(
-                title: Text('Manage every penny'),
+                title: Text('Quick approval'),
                 description: Text(
                   ' ',
                 ),
@@ -99,7 +99,7 @@ class OnboardingOverview extends StatelessWidget {
               ),
               const WhatsNewFeature(
                 title: Text(
-                  "With Haba analytics, you can view how much you spend on every expense in detail",
+                  "With Faraja finance, you can access upto Ksh 50,000 with fast approval time",
                 ),
                 description: Text(''),
                 icon: Icon(
@@ -115,7 +115,7 @@ class OnboardingOverview extends StatelessWidget {
         Align(
           child: WhatsNewPage(
             title: Text(
-              "Automate your\nPayments",
+              "Flexible\nRepayments",
               textAlign: TextAlign.center,
               style: TextStyles.h2(35),
             ),
@@ -135,7 +135,7 @@ class OnboardingOverview extends StatelessWidget {
               ),
               const WhatsNewFeature(
                 title: Text(
-                  "Integrate once, Forget about it. ",
+                  "Pay at your own pace",
                 ),
                 description: const Text(
                   ' ',
@@ -145,7 +145,7 @@ class OnboardingOverview extends StatelessWidget {
               ),
               const WhatsNewFeature(
                 title: Text(
-                    "Haba allows you to auto-pay  your expenses while you focus on important things."),
+                    "Faraja Credit allows you to pay your loan at flexible repayment period of of upto 6 months"),
                 description: Text(''),
                 icon: Icon(
                   CupertinoIcons.paintbrush,
