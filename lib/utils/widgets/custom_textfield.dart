@@ -6,6 +6,7 @@ import 'package:haba/utils/colors.dart';
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final Color? color;
   final String text;
   final TextInputType inputType;
   final bool obscureText;
@@ -15,8 +16,8 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.controller,
     required this.hintText,
+    this.color,
     required this.text,
-
     this.inputType = TextInputType.text,
     this.obscureText = false,
     this.maxLines = 1,
@@ -25,7 +26,7 @@ class CustomTextField extends StatelessWidget {
   final InputBorder inputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(5),
     borderSide: BorderSide(
-      color: AppColors.primaryColor,
+      color: AppColors.greyPAGEBLUE!,
       width: 1.2,
       strokeAlign: BorderSide.strokeAlignCenter,
     ),
@@ -35,13 +36,14 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(text)),
+        Align(alignment: Alignment.centerLeft, child: Text(text)),
+        const SizedBox(
+          height: 5,
+        ),
         TextField(
-          maxLines: maxLines,
+          maxLines: 2,
           controller: controller,
-          style: TextStyles.normal(20),
+          style: TextStyles.normal(22),
           keyboardType: inputType,
           cursorColor: Theme.of(context).primaryColor,
           obscureText: obscureText,
@@ -50,9 +52,9 @@ class CustomTextField extends StatelessWidget {
             enabledBorder: inputBorder,
             hintText: hintText,
             hintStyle:
-                TextStyles.light(15).copyWith(color: AppTheme.hintTextColor),
+                TextStyles.normal(15).copyWith(color: Colors.grey, height: 2),
             contentPadding:
-                const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
           ),
         ),
       ],

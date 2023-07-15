@@ -12,7 +12,11 @@ class TextStyles {
   static TextStyle normal([double? fontSize, Color? colors]) => TextStyle(
       fontFamily: 'GothamMedium',
       fontSize: fontSize ?? 16,
-      color: colors??Colors.black);
+      color: colors ?? Colors.black);
+  static TextStyle title([double? fontSize, Color? colors]) => TextStyle(
+      fontFamily: 'GothamMedium',
+      fontSize: fontSize ?? 22,
+      color: colors ?? Colors.black);
   static TextStyle light([double? fontSize, Color? colors]) => TextStyle(
       fontFamily: 'Gotham-Light',
       fontSize: fontSize ?? 14,

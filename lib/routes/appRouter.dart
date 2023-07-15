@@ -5,8 +5,11 @@ import 'package:haba/screens/auth/otp_screen.dart';
 import 'package:haba/screens/auth/personal_info.dart';
 import 'package:haba/screens/auth/register.dart';
 import 'package:haba/screens/dash.dart';
+import 'package:haba/screens/loanoffers/loanoffers.dart';
 import 'package:haba/screens/onboarding/onboarding_main.dart';
 import 'package:logger/logger.dart';
+
+import '../screens/personalInfo/personalInformation.dart';
 
 class AppRouter {
   static const String splashScreenRoute = "/onboarding";
@@ -15,6 +18,8 @@ class AppRouter {
   static const String login = "/login";
   static const String personal_Info = "/personal_Info";
   static const String otpField = "/otpField";
+  static const String personalInfoHome = "/personalInfoHome";
+  static const String loanOffers = "/loanOffers";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final _args = settings.arguments;
@@ -37,6 +42,17 @@ class AppRouter {
         return _route(
           const PersonalInfo(),
           personal_Info,
+        );
+         case personalInfoHome:
+        return _route(
+          const PersonalInfoHome(),
+          personalInfoHome,
+        );
+        
+         case loanOffers:
+        return _route(
+          const LoanOffers(),
+          loanOffers,
         );
         
       case otpField:

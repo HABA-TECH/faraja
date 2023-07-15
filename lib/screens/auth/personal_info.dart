@@ -75,6 +75,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         obscureText: false,
                       ),
                     ),
+                    
                     Padding(
                       padding: const EdgeInsets.only(top: 15),
                       child: CustomTextField(

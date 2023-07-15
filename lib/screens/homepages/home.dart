@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:haba/utils/colors.dart';
+import 'package:haba/utils/widgets/homeContainers.dart';
 
+import '../../utils/TextStyles.dart';
 import '../../utils/widgets/headerContainer.dart';
 
 class Home extends StatefulWidget {
@@ -17,7 +19,7 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         appBar: AppBar(
             elevation: 0,
-            backgroundColor: AppColors.primaryColor,
+            backgroundColor: AppColors.greyPAGEBLUE,
             actions: [
               IconButton(
                 icon: const Icon(
@@ -63,11 +65,43 @@ class _HomeState extends State<Home> {
           child: Column(
             children: [
               // Header Container
-              // Drawer(),
               HeaderContainer(
                 name: 'Joshua',
                 height: MediaQuery.of(context).size.height * .30,
+              ),
+
+              const SizedBox(
+                height: 20,
+              ),
+
+              // Quick Links
+              Container(
+                // color: Colors.red,
+                height: MediaQuery.of(context).size.height / 2,
+                width: MediaQuery.of(context).size.width * .9,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Quick Links',
+                          style: TextStyles.h1(22, Colors.grey[700]),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      // HomeContainers
+                      const HomeContainers()
+                    ],
+                  ),
+                ),
               )
+              // Padding(
+              //     padding: const EdgeInsets.only(left: 17),
+              //     child:
             ],
           ),
         ),

@@ -24,7 +24,7 @@ class _HeaderContainerState extends State<HeaderContainer> {
           height: widget.height,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            color: AppColors.primaryColor,
+            color: AppColors.greyPAGEBLUE,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(0.0),
               topRight: Radius.zero,
@@ -68,7 +68,9 @@ class _HeaderContainerState extends State<HeaderContainer> {
 
         // Container
         DoubleContainer(
-          child1: Row(
+          child1: 
+          
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
@@ -107,11 +109,11 @@ class _HeaderContainerState extends State<HeaderContainer> {
                       child: Column(
                         children: [
                           Text(
-                            "Repayment ",
+                            "Limit",
                             style: TextStyles.h1(12, Colors.grey),
                           ),
                           Text(
-                            "KSH 0.00 ",
+                            "KSH 15, 000 ",
                             style: TextStyles.h1(15, Colors.black),
                           ),
                         ],
@@ -133,7 +135,7 @@ class _HeaderContainerState extends State<HeaderContainer> {
               ),
               const Align(
                 alignment: Alignment.centerLeft,
-                child: Text('Tell us more',
+                child: Text('Apply now',
                     style: TextStyle(color: Colors.indigo, fontSize: 14)),
               ),
             ],

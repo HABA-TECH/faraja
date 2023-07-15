@@ -45,12 +45,7 @@ class _DashboardState extends State<Dashboard> {
           onPageChanged: (index) {
             setState(() => _currentIndex = index);
           },
-          children: <Widget>[
-            const Home(),
-            const Activities(),
-            const Loans(),
-            const Profile()
-          ],
+          children: const <Widget>[Home(), Activities(), Loans(), Profile()],
         ),
       ),
       // floatingActionButton: FloatingActionButton(
@@ -72,14 +67,14 @@ class _DashboardState extends State<Dashboard> {
           BottomNavyBarItem(
             icon: const Icon(Icons.home_filled),
             title: const Text('Home'),
-            activeColor: AppColors.primaryColor,
+            activeColor: AppColors.greyPAGEBLUE!,
             inactiveColor: Colors.grey[500],
             textAlign: TextAlign.center,
           ),
           BottomNavyBarItem(
             icon: const Icon(Icons.analytics),
             title: const Text('Activities'),
-            activeColor: AppColors.primaryColor,
+            activeColor: AppColors.greyPAGEBLUE!,
             inactiveColor: Colors.grey[700],
             textAlign: TextAlign.center,
           ),
@@ -88,14 +83,14 @@ class _DashboardState extends State<Dashboard> {
             title: const Text(
               'Loans',
             ),
-            activeColor: AppColors.primaryColor,
+            activeColor: AppColors.greyPAGEBLUE!,
             textAlign: TextAlign.center,
             inactiveColor: Colors.grey[700],
           ),
           BottomNavyBarItem(
             icon: const Icon(Icons.person),
             title: const Text('Profile'),
-            activeColor: AppColors.primaryColor,
+            activeColor: AppColors.greyPAGEBLUE!,
             inactiveColor: Colors.grey[700],
             textAlign: TextAlign.center,
           ),
