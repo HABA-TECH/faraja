@@ -10,7 +10,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # followed by an optional build number separated by a +.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
+# In Android, build-name is used as versionNamÏMODALe while build-number used as versionCode.
 # Read more about Android versioning at https://developer.android.com/studio/publish/versioning
 # In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
 # Read more about iOS versioning at
@@ -30,14 +30,20 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   bottom_navy_bar: ^6.0.0
+  cached_network_image: ^3.2.3
+  circular_profile_avatar: ^2.0.5
+  cloud_firestore: ^4.8.3
   cupertino_icons: ^1.0.2
   cupertino_onboarding: ^1.1.1
+  firebase_core: ^2.15.0
+  firebase_storage: ^11.2.5
   flex_color_scheme: ^7.0.5
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.0.2
   flutter_otp_text_field: ^1.1.1
   flutter_svg: ^2.0.5
+  intl: ^0.18.1
   introduction_screen: ^3.1.8
   logger: ^1.3.0
   lottie: ^2.3.2
@@ -47,6 +53,7 @@ dependencies:
       ref: main
       path: modal_bottom_sheet
   provider: ^6.0.5
+  shared_preferences: ^2.2.0
   sliver_app_bar_builder: ^1.0.5
 dev_dependencies:
   flutter_flavorizr: null

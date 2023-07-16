@@ -1,12 +1,12 @@
 import 'package:cupertino_onboarding/cupertino_onboarding.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:haba/utils/AppTheme.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:logger/logger.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 
 import '../../routes/appRouter.dart';
+import '../../utils/colors.dart';
 
 class OnboardingOverview extends StatelessWidget {
   const OnboardingOverview({
@@ -18,10 +18,10 @@ class OnboardingOverview extends StatelessWidget {
     Logger logger = Logger();
     return CupertinoOnboarding(
       onPressedOnLastPage: () {
-        Navigator.popAndPushNamed(context, AppRouter.dash);
+        Navigator.popAndPushNamed(context, AppRouter.register);
         logger.i('To Register screen');
       },
-      bottomButtonColor: AppTheme.primaryColor,
+      bottomButtonColor: AppColors.primaryColor,
       pages: [
         // little by little
         Align(
@@ -45,13 +45,15 @@ class OnboardingOverview extends StatelessWidget {
                   ),
                 ),
               ),
-              const WhatsNewFeature(
-                title: Text('Low interest rates'),
-                description: Text(
+              WhatsNewFeature(
+                title: const Text('Low interest rates'),
+                description: const Text(
                   '',
                 ),
-                icon:
-                    Icon(CupertinoIcons.sparkles, color: AppTheme.primaryColor),
+                icon: Icon(
+                  CupertinoIcons.sparkles,
+                  color: AppColors.primaryColor,
+                ),
               ),
               const WhatsNewFeature(
                 title: Text(
@@ -89,13 +91,13 @@ class OnboardingOverview extends StatelessWidget {
                   ),
                 ),
               ),
-              const WhatsNewFeature(
+              WhatsNewFeature(
                 title: Text('Quick approval'),
                 description: Text(
                   ' ',
                 ),
-                icon:
-                    Icon(CupertinoIcons.sparkles, color: AppTheme.primaryColor),
+                icon: Icon(CupertinoIcons.sparkles,
+                    color: AppColors.primaryColor),
               ),
               const WhatsNewFeature(
                 title: Text(
@@ -133,15 +135,15 @@ class OnboardingOverview extends StatelessWidget {
                   ),
                 ),
               ),
-              const WhatsNewFeature(
+              WhatsNewFeature(
                 title: Text(
                   "Pay at your own pace",
                 ),
                 description: const Text(
                   ' ',
                 ),
-                icon:
-                    Icon(CupertinoIcons.sparkles, color: AppTheme.primaryColor),
+                icon: Icon(CupertinoIcons.sparkles,
+                    color: AppColors.primaryColor),
               ),
               const WhatsNewFeature(
                 title: Text(

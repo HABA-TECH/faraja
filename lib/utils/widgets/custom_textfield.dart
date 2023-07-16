@@ -40,13 +40,15 @@ class CustomTextField extends StatelessWidget {
         const SizedBox(
           height: 5,
         ),
-        TextField(
+        TextFormField(
           maxLines: 2,
           controller: controller,
           style: TextStyles.normal(22),
           keyboardType: inputType,
           cursorColor: Theme.of(context).primaryColor,
           obscureText: obscureText,
+          scrollPadding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           decoration: InputDecoration(
             focusedBorder: inputBorder,
             enabledBorder: inputBorder,

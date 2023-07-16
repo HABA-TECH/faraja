@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haba/routes/appRouter.dart';
 import 'package:haba/utils/colors.dart';
 import 'package:haba/utils/widgets/doublesidedContainer.dart';
 import 'package:sliver_app_bar_builder/sliver_app_bar_builder.dart';
@@ -68,9 +69,7 @@ class _HeaderContainerState extends State<HeaderContainer> {
 
         // Container
         DoubleContainer(
-          child1: 
-          
-          Row(
+          child1: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
@@ -113,7 +112,7 @@ class _HeaderContainerState extends State<HeaderContainer> {
                             style: TextStyles.h1(12, Colors.grey),
                           ),
                           Text(
-                            "KSH 15, 000 ",
+                            "KSH 55, 000 ",
                             style: TextStyles.h1(15, Colors.black),
                           ),
                         ],
@@ -133,10 +132,18 @@ class _HeaderContainerState extends State<HeaderContainer> {
               const SizedBox(
                 height: 8,
               ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Apply now',
-                    style: TextStyle(color: Colors.indigo, fontSize: 14)),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(AppRouter.personalInfoHome);
+                },
+                child: const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('Apply now',
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.indigo,
+                          fontSize: 14)),
+                ),
               ),
             ],
           ),

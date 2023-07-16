@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:haba/routes/appRouter.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:haba/utils/paddingUtil.dart';
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/widgets/custom_textfield.dart';
@@ -16,9 +18,14 @@ class PersonalInfoHome extends StatefulWidget {
 class _PersonalInfoHomeState extends State<PersonalInfoHome> {
   int _currentStep = 0;
   int? stepsNumberButton;
-  int? stepsNumber;
+  int stepsNumber = 0;
   String? chosenValue;
+  String? genderedValue;
+  String? maritalStatusValue;
+
   DateTime? _selectedDate;
+  String? formattedDate;
+
   final lastNameController = TextEditingController();
   final firstNameController = TextEditingController();
   final genderController = TextEditingController();
@@ -32,7 +39,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
   //     }
   //   });
   // }
-  Widget _circleStep(String text, int stepsNumber, headerText) {
+  Widget _circleStep(String text, stepsNumber, headerText) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -75,12 +82,157 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
   }
 
   @override
+  late String phoneNum = 'abc';
+  late String email = '';
+  late String lastName = '';
+  late String firstName = '';
+
+  @override
   void initState() {
-    // TODO: implement initState
-    // genderController.dispose();
-    // firstNameController.dispose();
-    // lastNameController.dispose();
     super.initState();
+    loadData();
+  }
+
+  void loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      phoneNum = prefs.getString('phone') ?? '0711';
+      email = prefs.getString('email') ?? 'test@gmail.com';
+      lastName = prefs.getString('lastName') ?? 'Kamau';
+      firstName = prefs.getString('firstName') ?? 'John';
+      // prefs.setString('lastName', lastName);
+      // prefs.setString('email', email);
+      // prefs.setString('phone', phone);
+    });
+  }
+
+  Widget buildDropDownMaleFemale() {
+    return Container(
+        height: 70,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(
+              color: AppColors.greyPAGEBLUE!,
+            )),
+        child: Center(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: genderedValue,
+                  elevation: 0,
+
+                  // Underline color
+                  // underline: Container(
+                  //   height: 2,
+                  //   color: Colors.deepPurpleAccent,
+                  // ),
+                  // Items in dropdown
+                  items: <String>[
+                    'Male',
+                    'Female',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  hint: const Text(
+                    'Select Gender',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      genderedValue = value;
+                    });
+                  },
+                ),
+              ),
+            ),
+          ),
+        ));
+  }
+
+  bool loopDone = false;
+  int loopValue = 0;
+  loopFromZeroToTwo() {
+    int val;
+    for (val = 0; val <= 2; val++) {
+      print('Loop Value: $val');
+    }
+    setState(() {
+      loopDone = true;
+      loopValue = val;
+    });
+    print('Done: $loopDone');
+  }
+
+  Widget buildDropDownMaritalStatus() {
+    return Container(
+        height: 70,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(
+              color: AppColors.greyPAGEBLUE!,
+            )),
+        child: Center(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: maritalStatusValue,
+                  elevation: 0,
+
+                  // Underline color
+                  // underline: Container(
+                  //   height: 2,
+                  //   color: Colors.deepPurpleAccent,
+                  // ),
+                  // Items in dropdown
+                  items: <String>[
+                    'Single',
+                    'Married',
+                    'Divorced',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  hint: const Text(
+                    'Select Marital Status',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      maritalStatusValue = value;
+                    });
+                  },
+                ),
+              ),
+            ),
+          ),
+        ));
+  }
+
+  String convertDateTimeDisplay(String date) {
+    final DateFormat displayFormater = DateFormat('yyyy-MM-dd HH:mm:ss.SSS');
+    final DateFormat serverFormater = DateFormat('dd-MM-yyyy');
+    final DateTime displayDate = displayFormater.parse(date);
+    final String formatted = serverFormater.format(displayDate);
+    return formatted;
   }
 
   @override
@@ -147,9 +299,9 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            _circleStep('1', 0, 'Basic'),
-                            _circleStep('2', 1, 'Personal'),
-                            _circleStep('3', 2, 'Referee'),
+                            _circleStep('1', stepsNumber = 0, 'Basic'),
+                            _circleStep('2', stepsNumber = 1, 'Personal'),
+                            _circleStep('3', stepsNumber = 2, 'Referee'),
                           ],
                         ),
                         const SizedBox(height: 20),
@@ -169,7 +321,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                     padding: const EdgeInsets.only(top: 15),
                                     child: CustomTextField(
                                       text: 'First Name',
-                                      hintText: "eg John",
+                                      hintText: "$firstName",
                                       color: AppColors.greyPAGEBLUE,
                                       controller: firstNameController,
                                       inputType: TextInputType.text,
@@ -183,7 +335,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                     padding: const EdgeInsets.only(top: 15),
                                     child: CustomTextField(
                                       text: 'Last Name',
-                                      hintText: "eg Kamau",
+                                      hintText: "$lastName",
                                       color: AppColors.greyPAGEBLUE,
                                       controller: lastNameController,
                                       inputType: TextInputType.text,
@@ -210,6 +362,13 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                           if (picked != null &&
                                               picked != _selectedDate) {
                                             setState(() {
+                                              formattedDate =
+                                                  convertDateTimeDisplay(
+                                                      picked.toString());
+
+                                              print(
+                                                  'FORMATTEDdATE ${formattedDate}');
+
                                               _selectedDate = picked;
                                             });
                                           } else {
@@ -234,7 +393,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                                     const EdgeInsets.all(8.0),
                                                 child: Text(_selectedDate !=
                                                         null
-                                                    ? 'Date: ${_selectedDate!.toIso8601String()}'
+                                                    ? 'Date of birth: $formattedDate'
                                                     : 'Select Date of Birth'),
                                               ),
                                             ),
@@ -242,19 +401,12 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                         )),
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 15),
-                                    child: CustomTextField(
-                                      text: 'Gender',
-                                      hintText: "Male/Female",
-                                      controller: genderController,
-                                      inputType: TextInputType.text,
-                                      obscureText: false,
-                                    ),
-                                  ),
+                                SizedBox(
+                                  height: 15,
                                 ),
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: buildDropDownMaleFemale()),
                               ],
                             ),
                           ),
@@ -325,19 +477,12 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                     ),
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 15),
-                                    child: CustomTextField(
-                                      text: 'Marital Status',
-                                      hintText: "Single / Married",
-                                      controller: genderController,
-                                      inputType: TextInputType.text,
-                                      obscureText: false,
-                                    ),
-                                  ),
+                                SizedBox(
+                                  height: 15,
                                 ),
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: buildDropDownMaritalStatus()),
                               ],
                             ),
                           ),
@@ -357,40 +502,42 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                       alignment: Alignment.centerLeft,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: DropdownButton<String>(
-                                          value: chosenValue,
-                                          elevation: 0,
+                                        child: DropdownButtonHideUnderline(
+                                          child: DropdownButton<String>(
+                                            value: chosenValue,
+                                            elevation: 0,
 
-                                          // Underline color
-                                          // underline: Container(
-                                          //   height: 2,
-                                          //   color: Colors.deepPurpleAccent,
-                                          // ),
-                                          // Items in dropdown
-                                          items: <String>[
-                                            'Select the relationship',
-                                            'Parent',
-                                            'Sibling',
-                                            'Friend'
-                                          ].map<DropdownMenuItem<String>>(
-                                              (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                          hint: const Text(
-                                            "Select the relationship with your referee",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600),
+                                            // Underline color
+                                            // underline: Container(
+                                            //   height: 2,
+                                            //   color: Colors.deepPurpleAccent,
+                                            // ),
+                                            // Items in dropdown
+                                            items: <String>[
+                                              'Select the relationship',
+                                              'Parent',
+                                              'Sibling',
+                                              'Friend'
+                                            ].map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                            hint: const Text(
+                                              "Select the relationship with your referee",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            onChanged: (String? value) {
+                                              setState(() {
+                                                chosenValue = value;
+                                              });
+                                            },
                                           ),
-                                          onChanged: (String? value) {
-                                            setState(() {
-                                              chosenValue = value;
-                                            });
-                                          },
                                         ),
                                       ),
                                     ),
@@ -425,9 +572,18 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(left: 28.0),
         child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, AppRouter.loanOffers);
-          },
+          onPressed: loopDone
+              ? null
+              : () {
+                  setState(() {
+                    _currentStep++;
+                    if (_currentStep > 2) {
+                      _currentStep = 0;
+                      loopDone = true;
+                      Navigator.pushNamed(context, AppRouter.loanOffers);
+                    }
+                  });
+                },
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5), // Rectangle shape
@@ -436,8 +592,8 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                   ? AppColors.greyPAGEBLUE
                   : Colors.grey[400], // Change the color as needed
               foregroundColor: Colors.white, // Change the color as needed
-              padding: EdgeInsets.all(16), // Change the padding as needed
-              animationDuration: Duration(milliseconds: 1000)),
+              padding: const EdgeInsets.all(16), // Change the padding as needed
+              animationDuration: const Duration(milliseconds: 1000)),
           child: Container(
             width: double.infinity,
             height: 40,
@@ -446,7 +602,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
             ),
             // Make the button expand the full width
             alignment: Alignment.center,
-            child: Text(
+            child: const Text(
               'Submit',
               style: TextStyle(fontSize: 18),
             ),

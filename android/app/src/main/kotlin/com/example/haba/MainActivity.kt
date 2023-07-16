@@ -1,4 +1,4 @@
-package com.example.haba
+package com.faraja.app
 
 import io.flutter.embedding.android.FlutterActivity
 

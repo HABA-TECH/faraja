@@ -1,16 +1,11 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:haba/models/user.dart';
-import 'package:haba/screens/homepages/activity.dart';
+import 'package:haba/screens/homepages/loanactivities.dart';
 import 'package:haba/screens/homepages/home.dart';
 import 'package:haba/screens/homepages/loans.dart';
 import 'package:haba/screens/homepages/profile.dart';
+import 'package:haba/screens/loans/loanoffers.dart';
 import 'package:haba/utils/colors.dart';
-import 'package:provider/provider.dart';
-import '../flavors.dart';
-import '../providers/user_provider.dart';
-import '../repository/auth.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -45,7 +40,12 @@ class _DashboardState extends State<Dashboard> {
           onPageChanged: (index) {
             setState(() => _currentIndex = index);
           },
-          children: const <Widget>[Home(), Activities(), Loans(), Profile()],
+          children: const <Widget>[
+            Home(),
+            LoanActivities(),
+            LoanOffers(),
+            Profile()
+          ],
         ),
       ),
       // floatingActionButton: FloatingActionButton(
@@ -74,7 +74,7 @@ class _DashboardState extends State<Dashboard> {
           BottomNavyBarItem(
             icon: const Icon(Icons.analytics),
             title: const Text('Activities'),
-            activeColor: AppColors.greyPAGEBLUE!,
+            activeColor: AppColors.greyPINK!,
             inactiveColor: Colors.grey[700],
             textAlign: TextAlign.center,
           ),
@@ -83,14 +83,14 @@ class _DashboardState extends State<Dashboard> {
             title: const Text(
               'Loans',
             ),
-            activeColor: AppColors.greyPAGEBLUE!,
+            activeColor: AppColors.greyCYAN!,
             textAlign: TextAlign.center,
             inactiveColor: Colors.grey[700],
           ),
           BottomNavyBarItem(
             icon: const Icon(Icons.person),
             title: const Text('Profile'),
-            activeColor: AppColors.greyPAGEBLUE!,
+            activeColor: AppColors.greyDARKGREEN!,
             inactiveColor: Colors.grey[700],
             textAlign: TextAlign.center,
           ),

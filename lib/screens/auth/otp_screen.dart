@@ -2,10 +2,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:haba/routes/appRouter.dart';
+import 'package:haba/services/data/sharedPreferences.dart';
 import 'package:haba/utils/widgets/custom_textfield.dart';
 import 'package:haba/utils/AppTheme.dart';
 import 'package:haba/utils/colors.dart';
 import 'package:haba/utils/widgets/translucentBG.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/TextStyles.dart';
 import '../../utils/widgets/custom_button.dart';
@@ -24,7 +26,31 @@ class _OTPScreenState extends State<OTPScreen> {
   final lastNameController = TextEditingController();
   final firstNameController = TextEditingController();
   final idNumController = TextEditingController();
- 
+
+  late String phoneNum = 'abc';
+  late String email = '';
+  late String lastName = '';
+  late String firstName = '';
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  void loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      phoneNum = prefs.getString('phone') ?? '0711';
+      email = prefs.getString('email') ?? 'test@gmail.com';
+      lastName = prefs.getString('lastName') ?? 'Kamau';
+      firstName = prefs.getString('firstName') ?? 'John';
+      // prefs.setString('lastName', lastName);
+      // prefs.setString('email', email);
+      // prefs.setString('phone', phone);
+    });
+  }
+
   @override
   void dispose() {
     emailController.dispose();
@@ -32,10 +58,12 @@ class _OTPScreenState extends State<OTPScreen> {
     super.dispose();
   }
 
+  // Future<UserData> getData() async {
+  //   return await DataService().getData();
+  // }
+
   @override
   Widget build(BuildContext context) {
-
-     
     return SingleChildScrollView(
       child: Material(
         child: Container(
@@ -81,7 +109,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       child: Row(
                         children: [
                           Text(
-                            "0712345678",
+                            " $phoneNum",
                             style: TextStyles.h1(12, AppColors.primaryColor),
                           ),
                           const Icon(Icons.edit, color: Colors.black),
@@ -89,8 +117,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             padding: const EdgeInsets.only(right: 8.0),
                             child: Text(
                               "Edit",
-                              style:
-                                  TextStyles.h1(12, AppColors.primaryColor),
+                              style: TextStyles.h1(12, AppColors.primaryColor),
                             ),
                           ),
                         ],
@@ -103,43 +130,41 @@ class _OTPScreenState extends State<OTPScreen> {
                         style: TextStyles.h1(12, Colors.grey[800]),
                       ),
                     ),
-                     Align(
+                    Align(
                       alignment: Alignment.centerLeft,
-                       child: OtpTextField(
-                          numberOfFields: 5,
-                          borderColor: AppColors.primaryColor,
-                          fillColor:AppColors.primaryColor ,
-                          enabledBorderColor: AppColors.primaryColor,
-                          disabledBorderColor:  AppColors.primaryColor,
-                     
-                     
-                          //set to true to show as box or false to show as dash
-                          showFieldAsBox: true,
-                          //runs when a code is typed in
-                          onCodeChanged: (String code) {
-                            //handle validation or checks here
-                          },
-                          //runs when every textfield is filled
-                          onSubmit: (String verificationCode) {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Text("Verification Code"),
-                                    content:
-                                        Text('Code entered is $verificationCode'),
-                                  );
-                                });
-                          }, // end onSubmit
-                        ),
-                     ),
+                      child: OtpTextField(
+                        numberOfFields: 5,
+                        borderColor: AppColors.primaryColor,
+                        fillColor: AppColors.primaryColor,
+                        enabledBorderColor: AppColors.primaryColor,
+                        disabledBorderColor: AppColors.primaryColor,
+
+                        //set to true to show as box or false to show as dash
+                        showFieldAsBox: true,
+                        //runs when a code is typed in
+                        onCodeChanged: (String code) {
+                          //handle validation or checks here
+                        },
+                        //runs when every textfield is filled
+                        onSubmit: (String verificationCode) {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Verification Code"),
+                                  content:
+                                      Text('Code entered is $verificationCode'),
+                                );
+                              });
+                        }, // end onSubmit
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 90.0),
                       child: CustomButton(
                         buttonText: 'Submit',
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, AppRouter.login);
+                          Navigator.pushNamed(context, AppRouter.login);
                         },
                         width: MediaQuery.of(context).size.width * .9,
                         height: 50,
