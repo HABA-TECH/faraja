@@ -44,6 +44,18 @@ class _AdminHomeState extends State<AdminHome> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        drawer: Drawer(
+            child: ListView(
+          children: [
+            ListTile(
+              onTap: () {
+                Navigator.pushNamed(context, AppRouter.login);
+              },
+              leading: Icon(Icons.person),
+              title: Text('Log Out'),
+            ),
+          ],
+        )),
         appBar: AppBar(
             elevation: 0,
             backgroundColor: AppColors.greyPAGEBLUE,

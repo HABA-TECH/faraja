@@ -171,55 +171,53 @@ N/B When borrowing a loan make sure the institution you borrowing from is a good
       context: context,
       backgroundColor: Colors.transparent,
       builder: (context) => SingleChildScrollView(
-        child: Expanded(
-          child: Container(
-            // color: Colors.white,
-            height: MediaQuery.of(context).size.height * 1.2,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(25.0),
-                topRight: Radius.circular(25.0),
-                bottomLeft: Radius.circular(0.0),
-                bottomRight: Radius.circular(0.0),
-              ),
+        child: Container(
+          // color: Colors.white,
+          height: MediaQuery.of(context).size.height * 1.2,
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(25.0),
+              topRight: Radius.circular(25.0),
+              bottomLeft: Radius.circular(0.0),
+              bottomRight: Radius.circular(0.0),
             ),
+          ),
 
-            child: Column(
-              children: [
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.close,
-                          color: Colors.transparent,
-                        )),
-                    IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.close))
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: AppPadding.regularPadding,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      text,
-                      style: TextStyles.normal(
-                        15,
-                        Colors.grey[800],
-                      ),
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.transparent,
+                      )),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.close))
+                ],
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: AppPadding.regularPadding,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    text,
+                    style: TextStyles.normal(
+                      15,
+                      Colors.grey[800],
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

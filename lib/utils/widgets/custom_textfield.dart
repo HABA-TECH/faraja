@@ -41,6 +41,12 @@ class CustomTextField extends StatelessWidget {
           height: 5,
         ),
         TextFormField(
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter some text';
+            }
+            return null;
+          },
           maxLines: 2,
           controller: controller,
           style: TextStyles.normal(22),

@@ -7,6 +7,7 @@ import 'package:haba/utils/widgets/doublesidedContainer.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:lottie/lottie.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../routes/appRouter.dart';
@@ -296,19 +297,104 @@ class _VerifyPayState extends State<VerifyPay> {
         ),
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(left: 28.0),
+        padding: EdgeInsets.only(left: 28.0),
         child: ElevatedButton(
           onPressed: () {
-            LaunchReview.launch(androidAppId: "com.okoacash.okoakenyaloans");
+            showMaterialModalBottomSheet(
+              expand: false,
+              context: context,
+              backgroundColor: Colors.transparent,
+              builder: (context) => SingleChildScrollView(
+                child: Expanded(
+                  child: Container(
+                    // color: Colors.white,
+                    height: MediaQuery.of(context).size.height * 1.2,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(25.0),
+                        topRight: Radius.circular(25.0),
+                        bottomLeft: Radius.circular(0.0),
+                        bottomRight: Radius.circular(0.0),
+                      ),
+                    ),
+
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.close,
+                                  color: Colors.transparent,
+                                )),
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(Icons.close))
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Padding(
+                          padding: AppPadding.regularPadding,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Please take some time to rate our application',
+                              style: TextStyles.normal(
+                                15,
+                                Colors.grey[800],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Padding(
+                          padding: AppPadding.regularPadding,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: CustomButton(
+                                buttonText: 'Verify Payment',
+                                height: 60,
+                                radius: 8,
+                                color: AppColors.greyPAGEBLUE,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Future.delayed(
+                                      Duration(
+                                        seconds: 5,
+                                      ), () {
+                                    LaunchReview.launch(
+                                        androidAppId: "com.faraja.app");
+                                  });
+                                  setState(() {
+                                    submitted = true;
+                                  });
+                                },
+                                width: MediaQuery.of(context).size.width),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
 
             // Navigator.pop(context);
             // Navigator.pop(context);
             // Navigator.pop(context);
             // Navigator.pop(context);
             // Navigator.pop(context);
-            setState(() {
-              submitted = true;
-            });
           },
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(

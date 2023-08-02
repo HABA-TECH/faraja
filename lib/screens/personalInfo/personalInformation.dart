@@ -21,6 +21,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
   int stepsNumber = 0;
   String? chosenValue;
   String? genderedValue;
+  bool? isFilled = false;
   String? maritalStatusValue;
 
   DateTime? _selectedDate;
@@ -152,6 +153,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                   ),
                   onChanged: (String? value) {
                     setState(() {
+                      isFilled = true;
                       genderedValue = value;
                     });
                   },
@@ -220,6 +222,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                   ),
                   onChanged: (String? value) {
                     setState(() {
+                      isFilled == true;
                       maritalStatusValue = value;
                     });
                   },
@@ -537,6 +540,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                             ),
                                             onChanged: (String? value) {
                                               setState(() {
+                                                isFilled == false;
                                                 chosenValue = value;
                                               });
                                             },
@@ -578,14 +582,24 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
           onPressed: loopDone
               ? null
               : () {
-                  setState(() {
-                    _currentStep++;
-                    if (_currentStep > 2) {
-                      _currentStep = 0;
-                      loopDone = true;
-                      Navigator.pushNamed(context, AppRouter.loanOffers);
-                    }
-                  });
+                  isFilled == true
+                      ? setState(() {
+                          _currentStep++;
+                          if (_currentStep > 2) {
+                            _currentStep = 0;
+                            loopDone = true;
+
+                            Navigator.pushNamed(context, AppRouter.loanOffers);
+                            setState(() {
+                              isFilled == false;
+                            });
+                          }
+                        })
+                      : ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content:
+                                  Text('Please Fill in all the information')),
+                        );
                 },
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -593,7 +607,8 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
               ),
               backgroundColor: _currentStep == 2
                   ? AppColors.greyPAGEBLUE
-                  : Colors.grey[400], // Change the color as needed
+                  : Color.fromARGB(
+                      255, 146, 145, 215), // Change the color as needed
               foregroundColor: Colors.white, // Change the color as needed
               padding: const EdgeInsets.all(16), // Change the padding as needed
               animationDuration: const Duration(milliseconds: 1000)),
@@ -605,9 +620,11 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
             ),
             // Make the button expand the full width
             alignment: Alignment.center,
-            child: const Text(
-              'Submit',
-              style: TextStyle(fontSize: 18),
+            child: Text(
+              _currentStep == 2 ? 'Submit' : 'Next',
+              style: TextStyle(
+                fontSize: 18,
+              ),
             ),
           ),
         ),
