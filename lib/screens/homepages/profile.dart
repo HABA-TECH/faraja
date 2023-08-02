@@ -123,7 +123,7 @@ class _ProfileState extends State<Profile> {
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Teacher',
+                        '',
                         style: TextStyles.normal(15, Colors.grey),
                       ),
                     ),
@@ -133,7 +133,9 @@ class _ProfileState extends State<Profile> {
                     ),
                     //Profile
                     ProfileContainer(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, AppRouter.loanOffers);
+                        },
                         buttonText: 'Credit Limit',
                         icon: Icon(Icons.check_box_outlined,
                             color: Colors.grey[800])),

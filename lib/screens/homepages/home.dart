@@ -108,17 +108,26 @@ class _HomeState extends State<Home> {
         drawer: Drawer(
             child: ListView(
           children: [
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.analytics),
               title: Text('Activities'),
+              onTap: () {
+                // Navigator.pushNamed(context, AppRouter.);
+              },
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.credit_card),
               title: Text('Loans'),
+              onTap: () {
+                Navigator.pushNamed(context, AppRouter.loanOffers);
+              },
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.person),
               title: Text('Profile'),
+              onTap: () {
+                // Navigator.pushNamed(context, AppRouter.pro);
+              },
             ),
             ListTile(
               onTap: () {
