@@ -42,7 +42,7 @@ class _RegisterState extends State<Register> {
     prefs.setString('pass', password);
     // prefs.setString('password', password);
   }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,101 +67,99 @@ class _RegisterState extends State<Register> {
                   SingleChildScrollView(
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height,
-                      child: Expanded(
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: TranslucentContainer(
-                            list: [
-                              Align(
-                                alignment: Alignment.topCenter,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 20.0),
-                                  child: Text("REGISTER",
-                                      style: TextStyles.h2(20)),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: TranslucentContainer(
+                          list: [
+                            Align(
+                              alignment: Alignment.topCenter,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 20.0),
+                                child: Text("REGISTER",
+                                    style: TextStyles.h2(20)),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 80),
+                              child: CustomTextField(
+                                text: 'Phone Number',
+                                hintText: "eg 0712...",
+                                controller: phoneController,
+                                inputType: TextInputType.phone,
+                                obscureText: false,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: CustomTextField(
+                                hintText: "Password",
+                                text: 'Password',
+                                controller: passwordController,
+                                inputType: TextInputType.visiblePassword,
+                                obscureText: false,
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 5.0),
+                                child: Text(
+                                  "It must contain not less than 8 characters",
+                                  style: TextStyles.h1(12, Colors.grey[800]),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 80),
-                                child: CustomTextField(
-                                  text: 'Phone Number',
-                                  hintText: "eg 0712...",
-                                  controller: phoneController,
-                                  inputType: TextInputType.phone,
-                                  obscureText: false,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: CustomTextField(
-                                  hintText: "Password",
-                                  text: 'Password',
-                                  controller: passwordController,
-                                  inputType: TextInputType.visiblePassword,
-                                  obscureText: false,
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 5.0),
-                                  child: Text(
-                                    "It must contain not less than 8 characters",
-                                    style: TextStyles.h1(12, Colors.grey[800]),
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Already have an account?  ",
-                                        style:
-                                            TextStyles.h1(12, Colors.grey[800]),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Already have an account?  ",
+                                      style:
+                                          TextStyles.h1(12, Colors.grey[800]),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, AppRouter.login);
+                                      },
+                                      child: Text(
+                                        "Login",
+                                        style: TextStyles.h1(
+                                            12, AppColors.primaryColor),
                                       ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, AppRouter.login);
-                                        },
-                                        child: Text(
-                                          "Login",
-                                          style: TextStyles.h1(
-                                              12, AppColors.primaryColor),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 40.0),
-                                child: CustomButton(
-                                  buttonText: 'Register',
-                                  onPressed: () {
-                                    try {
-                                      // print(_fetchData());
-                                      setData(phoneController.text,
-                                          passwordController.text);
-                                      Navigator.pushNamed(
-                                          context, AppRouter.personal_Info);
-                                      print(
-                                          'SAVED CREDS ${phoneController.text}');
-                                      print(
-                                          'PASS CREDS ${passwordController.text}');
-                                    } catch (e) {
-                                      print('Error adding data: $e');
-                                    }
-                                  },
-                                  width: MediaQuery.of(context).size.width * .9,
-                                  height: 50,
-                                  radius: 20,
-                                ),
-                              )
-                            ],
-                          ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 40.0),
+                              child: CustomButton(
+                                buttonText: 'Register',
+                                onPressed: () {
+                                  try {
+                                    // print(_fetchData());
+                                    setData(phoneController.text,
+                                        passwordController.text);
+                                    Navigator.pushNamed(
+                                        context, AppRouter.personal_Info);
+                                    print(
+                                        'SAVED CREDS ${phoneController.text}');
+                                    print(
+                                        'PASS CREDS ${passwordController.text}');
+                                  } catch (e) {
+                                    print('Error adding data: $e');
+                                  }
+                                },
+                                width: MediaQuery.of(context).size.width * .9,
+                                height: 50,
+                                radius: 20,
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ),

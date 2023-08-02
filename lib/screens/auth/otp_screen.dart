@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
@@ -8,9 +11,11 @@ import 'package:haba/utils/AppTheme.dart';
 import 'package:haba/utils/colors.dart';
 import 'package:haba/utils/widgets/translucentBG.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../utils/TextStyles.dart';
 import '../../utils/widgets/custom_button.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
@@ -31,11 +36,47 @@ class _OTPScreenState extends State<OTPScreen> {
   late String email = '';
   late String lastName = '';
   late String firstName = '';
+  String? generatedNumber;
 
+  void generateNumber() {
+    setState(() {
+      generatedNumber = (Random().nextInt(90000) + 10000).toString();
+    });
+  }
+
+// =================================================================
+  String _code = "";
+  // String signature = "{{ app signature }}";
+// =================================================================
   @override
   void initState() {
-    super.initState();
+    generateNumber();
+    startTimer();
+    Future.delayed(
+      Duration(seconds: 3),
+      () {
+        setState(() {
+          _code = generatedNumber!;
+        });
+      },
+    );
     loadData();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  int remainingSeconds = 30;
+  Timer? timer;
+  void startTimer() {
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      setState(() {
+        if (remainingSeconds > 0) {
+          remainingSeconds--;
+        } else {
+          timer!.cancel();
+        }
+      });
+    });
   }
 
   void loadData() async {
@@ -54,7 +95,9 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   void dispose() {
     emailController.dispose();
+    startTimer();
     passwordController.dispose();
+    SmsAutoFill().unregisterListener();
     super.dispose();
   }
 
@@ -125,42 +168,43 @@ class _OTPScreenState extends State<OTPScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                      child: Text(
-                        "Please input the One Time PIN sent to your phone number",
-                        style: TextStyles.h1(12, Colors.grey[800]),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "A one time pin has been sent to initialized.",
+                            style: TextStyles.h1(12, Colors.grey[800]),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 28.0),
+                            child: Text(
+                              remainingSeconds.toString(),
+                              style: TextStyles.h1(12, AppColors.greyPAGEBLUE),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: OtpTextField(
-                        numberOfFields: 5,
-                        borderColor: AppColors.primaryColor,
-                        fillColor: AppColors.primaryColor,
-                        enabledBorderColor: AppColors.primaryColor,
-                        disabledBorderColor: AppColors.primaryColor,
-
-                        //set to true to show as box or false to show as dash
-                        showFieldAsBox: true,
-                        //runs when a code is typed in
-                        onCodeChanged: (String code) {
-                          //handle validation or checks here
-                        },
-                        //runs when every textfield is filled
-                        onSubmit: (String verificationCode) {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text("Verification Code"),
-                                  content:
-                                      Text('Code entered is $verificationCode'),
-                                );
-                              });
-                        }, // end onSubmit
+                    const Spacer(),
+                    PinFieldAutoFill(
+                      codeLength: 5,
+                      decoration: UnderlineDecoration(
+                        textStyle:
+                            const TextStyle(fontSize: 20, color: Colors.black),
+                        colorBuilder:
+                            FixedColorBuilder(AppColors.greyPAGEBLUE!),
                       ),
+                      currentCode: _code,
+                      onCodeSubmitted: (code) {},
+                      onCodeChanged: (code) {
+                        if (code!.length == 5) {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                        }
+                      },
                     ),
+                    const Spacer(),
                     Padding(
-                      padding: const EdgeInsets.only(top: 90.0),
+                      padding: const EdgeInsets.only(top: 20.0),
                       child: CustomButton(
                         buttonText: 'Submit',
                         onPressed: () {
@@ -170,7 +214,8 @@ class _OTPScreenState extends State<OTPScreen> {
                         height: 50,
                         radius: 20,
                       ),
-                    )
+                    ),
+                    const Spacer(),
                   ],
                 ))),
       ),

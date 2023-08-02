@@ -4,6 +4,7 @@ import 'package:haba/screens/loans/loanapplication.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:haba/utils/paddingUtil.dart';
 import 'package:haba/utils/widgets/doublesidedContainer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../routes/appRouter.dart';
 import '../../utils/colors.dart';
@@ -27,6 +28,20 @@ class _LoanOffersState extends State<LoanOffers> {
   //   });
   // }
 
+
+   
+
+  double? interest;
+  String? loanType;
+
+  void setData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setString('loanType', loanType!);
+    prefs.setDouble('rate', interest!);
+    print('SAVEDOFFERS ${loanType!} || ${interest!}');
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -35,8 +50,6 @@ class _LoanOffersState extends State<LoanOffers> {
     // lastNameController.dispose();
     super.initState();
   }
-
-  double? interest;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +61,7 @@ class _LoanOffersState extends State<LoanOffers> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushNamed(context, AppRouter.dash);
           },
         ),
       ),
@@ -88,7 +101,9 @@ class _LoanOffersState extends State<LoanOffers> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
+                          setData();
                           interest = 0.05;
+                          loanType = 'Business Loans';
                         });
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
@@ -210,7 +225,9 @@ class _LoanOffersState extends State<LoanOffers> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
+                          setData();
                           interest = 0.04;
+                          loanType = 'Personal Loans';
                         });
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
@@ -329,7 +346,9 @@ class _LoanOffersState extends State<LoanOffers> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
+                          setData();
                           interest = 0.03;
+                          loanType = 'Student Loans';
                         });
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
@@ -448,7 +467,9 @@ class _LoanOffersState extends State<LoanOffers> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
+                          setData();
                           interest = 0.05;
+                          loanType = 'Emergency Loans';
                         });
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {

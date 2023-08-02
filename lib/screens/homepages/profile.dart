@@ -4,6 +4,7 @@ import 'package:haba/utils/TextStyles.dart';
 import 'package:haba/utils/paddingUtil.dart';
 import 'package:haba/utils/widgets/doublesidedContainer.dart';
 import 'package:haba/utils/widgets/profileContainer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../routes/appRouter.dart';
 import '../../utils/colors.dart';
@@ -17,27 +18,36 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  // void incrementStep() {
-  //   setState(() {
-  //     if (selectedStep < 3) {
-  //       selectedStep++;
-  //     } else {
-  //       selectedStep = 1; // reset to the first step if the end is reached
-  //     }
-  //   });
-  // }
+  late String phoneNum = 'abc';
+  late String email = '';
+  late String lastName = '';
+  late String firstName = '';
 
   @override
   void initState() {
-    // TODO: implement initState
-    // genderController.dispose();
-    // firstNameController.dispose();
-    // lastNameController.dispose();
     super.initState();
+    loadData();
+  }
+
+  void loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      phoneNum = prefs.getString('phone') ?? '0711';
+      email = prefs.getString('email') ?? 'test@gmail.com';
+      lastName = prefs.getString('lastName') ?? 'Kamau';
+      firstName = prefs.getString('firstName') ?? 'John';
+      // prefs.setString('lastName', lastName);
+      // prefs.setString('email', email);
+      // prefs.setString('phone', phone);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    String firstNameInitial = firstName.substring(0, 1);
+    String lastNameInitial = lastName.substring(0, 1);
+
+    String initials = "$firstNameInitial$lastNameInitial";
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -77,15 +87,15 @@ class _ProfileState extends State<Profile> {
                     Align(
                         alignment: Alignment.center,
                         child: CircularProfileAvatar(
-                          'https://avatars0.githubusercontent.com/u/8264639?s=460&v=4', //sets image path, it should be a URL string. default value is empty string, if path is empty it will display only initials
+                          'https://firebasestorage.googleapis.com/v0/b/faraja-5e953.appspot.com/o/avatar.png?alt=media&token=2f710331-38fd-4d48-b4f5-21b7b7592c30', //sets image path, it should be a URL string. default value is empty string, if path is empty it will display only initials
                           radius: 60, // sets radius, default 50.0
                           backgroundColor: Colors
                               .transparent, // sets background color, default Colors.white
                           borderWidth: 5, // sets border, default 0.0
-                          // initialsText: const Text(
-                          //   "AD",
-                          //   style: TextStyle(fontSize: 40, color: Colors.white),
-                          // ), // sets initials text, set your own style, default Text('')
+                          initialsText: Text(
+                            initials,
+                            style: TextStyle(fontSize: 40, color: Colors.white),
+                          ), // sets initials text, set your own style, default Text('')
                           borderColor: AppColors
                               .greyPAGEBLUE!, // sets border color, default Colors.white
                           elevation:
@@ -106,7 +116,7 @@ class _ProfileState extends State<Profile> {
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Joshua Patrick',
+                        firstName,
                         style: TextStyles.title(),
                       ),
                     ),

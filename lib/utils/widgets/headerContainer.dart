@@ -152,3 +152,69 @@ class _HeaderContainerState extends State<HeaderContainer> {
     );
   }
 }
+
+class AdminHeaderContainer extends StatefulWidget {
+  final double? height;
+  final String? name;
+
+  const AdminHeaderContainer(
+      {super.key, required this.height, required this.name});
+
+  @override
+  State<AdminHeaderContainer> createState() => _AdminHeaderContainerState();
+}
+
+class _AdminHeaderContainerState extends State<AdminHeaderContainer> {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          height: widget.height,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            color: AppColors.greyPAGEBLUE,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(0.0),
+              topRight: Radius.zero,
+              bottomLeft: Radius.circular(25.0),
+              bottomRight: Radius.circular(25.0),
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.only(left: 17, right: 10),
+            child:
+                // TEXT
+                Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      'Financial Management',
+                      style: TextStyles.h1(22, Colors.white),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      "Ideas and steps towards financial freedom",
+                      style: TextStyles.light(
+                        15,
+                        Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

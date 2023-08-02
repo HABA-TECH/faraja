@@ -1,8 +1,10 @@
+import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
 import 'package:haba/utils/colors.dart';
 import 'package:haba/utils/widgets/homeContainers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../routes/appRouter.dart';
 import '../../utils/TextStyles.dart';
 import '../../utils/widgets/headerContainer.dart';
 
@@ -14,14 +16,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-    late String phoneNum = 'abc';
+  late String phoneNum = 'abc';
   late String email = '';
   late String lastName = '';
   late String firstName = '';
-
+  String FB_INTERSTITIAL_AD_ID = "996101281548472_996123001546300";
+  bool isInterstitialAdLoaded = false;
   @override
   void initState() {
     super.initState();
+    _loadInterstitialAd();
     loadData();
   }
 
@@ -38,6 +42,22 @@ class _HomeState extends State<Home> {
     });
   }
 
+  void _loadInterstitialAd() {
+    FacebookInterstitialAd.loadInterstitialAd(
+        placementId: FB_INTERSTITIAL_AD_ID,
+        listener: (result, value) {
+          if (result == InterstitialAdResult.LOADED) {
+            isInterstitialAdLoaded = true;
+          }
+
+          if (result == InterstitialAdResult.DISMISSED &&
+              value["invalidated"] == true) {
+            isInterstitialAdLoaded = false;
+            _loadInterstitialAd();
+          }
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,6 +72,22 @@ class _HomeState extends State<Home> {
                   color: Colors.white,
                 ),
                 onPressed: () {
+                  FacebookNativeAd(
+                    placementId: "996101281548472_996122818212985",
+                    adType: NativeAdType.NATIVE_BANNER_AD,
+                    bannerAdSize: NativeBannerAdSize.HEIGHT_100,
+                    width: double.infinity,
+                    backgroundColor: Colors.blue,
+                    titleColor: Colors.white,
+                    descriptionColor: Colors.white,
+                    buttonColor: Colors.deepPurple,
+                    buttonTitleColor: Colors.white,
+                    buttonBorderColor: Colors.white,
+                    listener: (result, value) {
+                      print("Native Ad: $result --> $value");
+                    },
+                  );
+                  // _loadInterstitialAd();
                   // open notifications
                 },
                 tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
@@ -71,18 +107,25 @@ class _HomeState extends State<Home> {
             })),
         drawer: Drawer(
             child: ListView(
-          children: const [
-            ListTile(
+          children: [
+            const ListTile(
               leading: Icon(Icons.analytics),
               title: Text('Activities'),
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.credit_card),
               title: Text('Loans'),
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.person),
               title: Text('Profile'),
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.pushNamed(context, AppRouter.register);
+              },
+              leading: Icon(Icons.person),
+              title: Text('Log Out'),
             ),
           ],
         )),
@@ -90,7 +133,7 @@ class _HomeState extends State<Home> {
           child: Column(
             children: [
               // Header Container
-              HeaderContainer(
+              AdminHeaderContainer(
                 name: firstName,
                 height: MediaQuery.of(context).size.height * .30,
               ),

@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
         title: 'Faraja',
         theme: AppTheme.lightTheme,
         debugShowCheckedModeBanner: false,
-        home: session == false ? const OnboardingOverview() : Dashboard(),
+        home: const OnboardingOverview(),
         onGenerateRoute: AppRouter.generateRoute,
       ),
     );

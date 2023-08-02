@@ -1,6 +1,9 @@
+import 'package:facebook_audience_network/ad/ad_interstitial.dart';
+import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:haba/routes/appRouter.dart';
+import 'package:haba/utils/constants.dart';
 import 'package:haba/utils/widgets/custom_textfield.dart';
 import 'package:haba/utils/AppTheme.dart';
 import 'package:haba/utils/colors.dart';
@@ -25,11 +28,31 @@ class _LoginState extends State<Login> {
   late String email = '';
   late String lastName = '';
   late String password = '';
-
+  String FB_INTERSTITIAL_AD_ID = "996101281548472_996123001546300";
+  bool isInterstitialAdLoaded = false;
   @override
   void initState() {
+    FacebookAudienceNetwork.init(
+      testingId: "37b1da9d-b48c-4103-a393-2e095e734bd6", //optional
+    );
     super.initState();
     loadData();
+  }
+
+  void _loadInterstitialAd() {
+    FacebookInterstitialAd.loadInterstitialAd(
+        placementId: FB_INTERSTITIAL_AD_ID,
+        listener: (result, value) {
+          if (result == InterstitialAdResult.LOADED) {
+            isInterstitialAdLoaded = true;
+          }
+
+          if (result == InterstitialAdResult.DISMISSED &&
+              value["invalidated"] == true) {
+            isInterstitialAdLoaded = false;
+            _loadInterstitialAd();
+          }
+        });
   }
 
   void setSession() async {
@@ -78,105 +101,149 @@ class _LoginState extends State<Login> {
                   SingleChildScrollView(
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height,
-                      child: Expanded(
-                        child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: TranslucentContainer(
-                              list: [
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 20.0),
-                                    child:
-                                        Text("LOGIN", style: TextStyles.h2(20)),
-                                  ),
+                      child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: TranslucentContainer(
+                            list: [
+                              Align(
+                                alignment: Alignment.topCenter,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 20.0),
+                                  child:
+                                      Text("LOGIN", style: TextStyles.h2(20)),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 80),
-                                  child: CustomTextField(
-                                    text: 'Phone Number',
-                                    hintText: "eg 0712...",
-                                    controller: phoneController,
-                                    inputType: TextInputType.phone,
-                                    obscureText: false,
-                                  ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 80),
+                                child: CustomTextField(
+                                  text: 'Phone Number',
+                                  hintText: "eg 0712...",
+                                  controller: phoneController,
+                                  inputType: TextInputType.phone,
+                                  obscureText: false,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: CustomTextField(
-                                    hintText: "Password",
-                                    text: 'Password',
-                                    controller: passwordController,
-                                    inputType: TextInputType.visiblePassword,
-                                    obscureText: false,
-                                  ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: CustomTextField(
+                                  hintText: "Password",
+                                  text: 'Password',
+                                  controller: passwordController,
+                                  inputType: TextInputType.visiblePassword,
+                                  obscureText: false,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 55.0),
-                                  child: CustomButton(
-                                    buttonText: 'Login',
-                                    onPressed: () {
-                                      // ignore: avoid_print
-                                      print(
-                                          'PHONE NUMBER TYPED ${phoneController.text}');
-                                      // ignore: avoid_print
-                                      print('PHONE NUMBER SAVED ${phoneNum}');
-                                      if (phoneController.text == phoneNum &&
-                                          passwordController.text == password) {
-                                        // ignore: avoid_print
-                                        setSession();
-                                        print('SUCCESS');
-                                        Navigator.pushReplacementNamed(
-                                            context, AppRouter.dash);
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                          content: const Text(
-                                              'Wrong email or password'),
-                                          action: SnackBarAction(
-                                            label: 'Undo',
-                                            onPressed: () {
-                                              // Some code to undo the change.
-                                            },
-                                          ),
-                                        ));
-                                      }
-                                    },
-                                    width:
-                                        MediaQuery.of(context).size.width * .9,
-                                    height: 50,
-                                    radius: 20,
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 10.0),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "Forgot credentials?  ",
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "Do not have an account?  ",
+                                        style:
+                                            TextStyles.h1(12, Colors.grey[800]),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, AppRouter.register);
+                                        },
+                                        child: Text(
+                                          "Register",
                                           style: TextStyles.h1(
-                                              12, Colors.grey[800]),
+                                              12, AppColors.primaryColor),
                                         ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            Navigator.pushNamed(
-                                                context, AppRouter.register);
-                                          },
-                                          child: Text(
-                                            "Reset Password",
-                                            style: TextStyles.h1(
-                                                12, AppColors.primaryColor),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            )),
-                      ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 55.0),
+                                child: CustomButton(
+                                  buttonText: 'Login',
+                                  onPressed: () {
+                                    _loadInterstitialAd();
+                                    // FacebookInterstitialAd.loadInterstitialAd(
+                                    //   placementId:
+                                    //       "996101281548472_996123001546300",
+                                    //   listener: (result, value) {
+                                    //     if (result ==
+                                    //         InterstitialAdResult.LOADED)
+                                    //       FacebookInterstitialAd
+                                    //           .showInterstitialAd(
+                                    //               delay: 5000);
+                                    //   },
+                                    // );
+                                    // ignore: avoid_print
+                                    print(
+                                        'PHONE NUMBER TYPED ${phoneController.text}');
+                                    // ignore: avoid_print
+                                    print('PHONE NUMBER SAVED ${phoneNum}');
+                                    if (phoneController.text == phoneNum &&
+                                            passwordController.text ==
+                                                password ||
+                                        phoneController.text ==
+                                                KConst.admin_phone &&
+                                            passwordController.text ==
+                                                KConst.admin_pass) {
+                                      // ignore: avoid_print
+                                      setSession();
+                                      print('SUCCESS');
+                                      Navigator.pushReplacementNamed(
+                                          context,
+                                          phoneController.text ==
+                                                  KConst.admin_phone
+                                              ? AppRouter.adminHome
+                                              : AppRouter.dash);
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: const Text(
+                                            'Wrong email or password'),
+                                        action: SnackBarAction(
+                                          label: 'Undo',
+                                          onPressed: () {
+                                            // Some code to undo the change.
+                                          },
+                                        ),
+                                      ));
+                                    }
+                                  },
+                                  width: MediaQuery.of(context).size.width * .9,
+                                  height: 50,
+                                  radius: 20,
+                                ),
+                              ),
+                              // Align(
+                              //   alignment: Alignment.centerLeft,
+                              //   child: Padding(
+                              //     padding: const EdgeInsets.only(top: 10.0),
+                              //     child: Row(
+                              //       children: [
+                              //         Text(
+                              //           "Forgot credentials?  ",
+                              //           style: TextStyles.h1(
+                              //               12, Colors.grey[800]),
+                              //         ),
+                              //         GestureDetector(
+                              //           onTap: () {
+                              //             Navigator.pushNamed(
+                              //                 context, AppRouter.register);
+                              //           },
+                              //           child: Text(
+                              //             "Reset Password",
+                              //             style: TextStyles.h1(
+                              //                 12, AppColors.primaryColor),
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
+                            ],
+                          )),
                     ),
                   ),
                 ],

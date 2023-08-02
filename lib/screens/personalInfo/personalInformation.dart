@@ -26,9 +26,12 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
   DateTime? _selectedDate;
   String? formattedDate;
 
-  final lastNameController = TextEditingController();
-  final firstNameController = TextEditingController();
+  final employmentController = TextEditingController();
+  final educationController = TextEditingController();
   final genderController = TextEditingController();
+  final professionController = TextEditingController();
+  final incomeController = TextEditingController();
+  final contactNameController = TextEditingController();
 
   // void incrementStep() {
   //   setState(() {
@@ -323,7 +326,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                       text: 'First Name',
                                       hintText: "$firstName",
                                       color: AppColors.greyPAGEBLUE,
-                                      controller: firstNameController,
+                                      controller: educationController,
                                       inputType: TextInputType.text,
                                       obscureText: false,
                                     ),
@@ -337,7 +340,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                       text: 'Last Name',
                                       hintText: "$lastName",
                                       color: AppColors.greyPAGEBLUE,
-                                      controller: lastNameController,
+                                      controller: employmentController,
                                       inputType: TextInputType.text,
                                       obscureText: false,
                                     ),
@@ -430,7 +433,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                       hintText:
                                           "Please type your highest level of education e.g University",
                                       color: AppColors.greyPAGEBLUE,
-                                      controller: firstNameController,
+                                      controller: educationController,
                                       inputType: TextInputType.text,
                                       obscureText: false,
                                     ),
@@ -445,7 +448,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                       hintText:
                                           "e.g Employed / Self Employment",
                                       color: AppColors.greyPAGEBLUE,
-                                      controller: lastNameController,
+                                      controller: employmentController,
                                       inputType: TextInputType.text,
                                       obscureText: false,
                                     ),
@@ -458,7 +461,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                     child: CustomTextField(
                                       text: 'Profession',
                                       hintText: "Type your profession",
-                                      controller: genderController,
+                                      controller: professionController,
                                       inputType: TextInputType.text,
                                       obscureText: false,
                                     ),
@@ -471,7 +474,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                     child: CustomTextField(
                                       text: 'Monthly Income',
                                       hintText: "Ksh ..",
-                                      controller: genderController,
+                                      controller: incomeController,
                                       inputType: TextInputType.number,
                                       obscureText: false,
                                     ),
@@ -550,7 +553,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                     text: 'Contact Name',
                                     hintText: "e.g Jane",
                                     color: AppColors.greyPAGEBLUE,
-                                    controller: lastNameController,
+                                    controller: contactNameController,
                                     inputType: TextInputType.text,
                                     obscureText: false,
                                   ),

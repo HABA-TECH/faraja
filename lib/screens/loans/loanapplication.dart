@@ -18,9 +18,8 @@ import '../../utils/widgets/custom_button.dart';
 import '../../utils/widgets/custom_textfield.dart';
 
 class LoaApplication extends StatefulWidget {
- 
-    final  double interest;
-   
+  final double interest;
+
   const LoaApplication({super.key, required this.interest});
 
   @override
@@ -28,10 +27,9 @@ class LoaApplication extends StatefulWidget {
 }
 
 class _LoaApplicationState extends State<LoaApplication> {
-
   double volumeValue = 500;
   double dateValue = 1;
- 
+
   double totalPremium = 500;
   String randomVal() {
     var rng = new Random();
@@ -39,7 +37,7 @@ class _LoaApplicationState extends State<LoaApplication> {
     return (randomNumber * 10).toString();
   }
 
-      late String phoneNum = 'abc';
+  late String phoneNum = 'abc';
   late String email = '';
   late String lastName = '';
   late String firstName = '';
@@ -47,7 +45,16 @@ class _LoaApplicationState extends State<LoaApplication> {
   @override
   void initState() {
     super.initState();
+    Firebase.initializeApp();
     loadData();
+  }
+
+  setData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setString(
+        'totalamount', (totalPremium + volumeValue).toStringAsFixed(2));
+    print('AMOUNT SAVED ${totalPremium + volumeValue}');
   }
 
   void loadData() async {
@@ -63,7 +70,7 @@ class _LoaApplicationState extends State<LoaApplication> {
     });
   }
 
-  CollectionReference users = FirebaseFirestore.instance.collection('faraja');
+  // CollectionReference users = FirebaseFirestore.instance.collection('faraja');
 
   //     void setData(loanAmount, loanActivity, ) async {
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -72,7 +79,6 @@ class _LoaApplicationState extends State<LoaApplication> {
   //   // prefs.setString('phone', phone);
   //   prefs.setString('idNumber', idNum);
   // }
-
 
   Future<List<ImageAndText>> readFromFirebase() async {
     await Firebase.initializeApp();
@@ -99,7 +105,7 @@ class _LoaApplicationState extends State<LoaApplication> {
     return docsList;
   }
 
-  void updateVolume(double newValue) {
+  updateVolume(double newValue) {
     setState(() {
       volumeValue = newValue;
       totalPremium = newValue * widget.interest;
@@ -116,11 +122,8 @@ class _LoaApplicationState extends State<LoaApplication> {
     });
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -397,6 +400,8 @@ class _LoaApplicationState extends State<LoaApplication> {
         padding: const EdgeInsets.only(left: 28.0),
         child: ElevatedButton(
           onPressed: () {
+            setData();
+
             showMaterialModalBottomSheet(
               expand: false,
               context: context,
@@ -567,7 +572,10 @@ class _LoaApplicationState extends State<LoaApplication> {
                                                 imageUrl: item.imageUrl ??
                                                     "https://picsum.photos/200/300",
                                                 placeholder: (context, url) =>
-                                                    const CircularProgressIndicator(),
+                                                    Container(
+                                                        height: 50,
+                                                        child:
+                                                            const CircularProgressIndicator()),
                                                 errorWidget:
                                                     (context, url, error) {
                                                   // print(
@@ -590,67 +598,7 @@ class _LoaApplicationState extends State<LoaApplication> {
                       const SizedBox(
                         height: 40,
                       ),
-                      // Align(
-                      //   alignment: Alignment.centerLeft,
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.only(top: 15),
-                      //     child: Column(
-                      //       children: [
-                      //         const Align(
-                      //             alignment: Alignment.centerLeft,
-                      //             child: Text(
-                      //               'MPESA MESSAGE',
-                      //             )),
-                      //         const SizedBox(
-                      //           height: 5,
-                      //         ),
-                      //         TextFormField(
-                      //           key: _formKey,
-                      //           maxLines: 2,
-                      //           validator: (value) {
-                      //             if (value == null || value.isEmpty) {
-                      //               return 'Please your MPESA Message';
-                      //             }
-                      //             return null;
-                      //           },
-                      //           controller: verifyPayController,
-                      //           style: TextStyles.normal(22),
-                      //           keyboardType: TextInputType.text,
-                      //           cursorColor: Theme.of(context).primaryColor,
-                      //           obscureText: false,
-                      //           decoration: InputDecoration(
-                      //             focusedBorder: inputBorder,
-                      //             enabledBorder: inputBorder,
-                      //             hintText: "RGF...",
-                      //             hintStyle: TextStyles.normal(15)
-                      //                 .copyWith(color: Colors.grey, height: 2),
-                      //             contentPadding: const EdgeInsets.symmetric(
-                      //                 vertical: 12, horizontal: 10),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                      // Padding(
-                      //   padding: AppPadding.regularPadding,
-                      //   child: Align(
-                      //     alignment: Alignment.centerLeft,
-                      //     child: CustomButton(
-                      //         buttonText: 'Verify Payment',
-                      //         height: 60,
-                      //         radius: 8,
-                      //         color: AppColors.greyPAGEBLUE,
-                      //         onPressed: () {
-                      //           if (_formKey.currentState!.validate()) {
-                      //             ScaffoldMessenger.of(context).showSnackBar(
-                      //               const SnackBar(content: Text('')),
-                      //             );
-                      //           }
-                      //         },
-                      //         width: MediaQuery.of(context).size.width),
-                      //   ),
-                      // ),
+
                       Padding(
                         padding: AppPadding.regularPadding,
                         child: Align(
@@ -661,8 +609,8 @@ class _LoaApplicationState extends State<LoaApplication> {
                               radius: 8,
                               color: AppColors.greyPAGEBLUE,
                               onPressed: () {
-                                
                                 Navigator.pushNamed(context, AppRouter.verify);
+
                                 // Navigator.pop(context);
                                 // Navigator.pop(context);
                                 // Navigator.pop(context);

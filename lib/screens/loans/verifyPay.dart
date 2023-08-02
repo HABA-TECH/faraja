@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:haba/utils/paddingUtil.dart';
 import 'package:haba/utils/widgets/doublesidedContainer.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../routes/appRouter.dart';
 import '../../utils/colors.dart';
@@ -22,12 +27,60 @@ class _VerifyPayState extends State<VerifyPay> {
   final _formKey = GlobalKey<FormState>();
   bool? verifyPay = false;
   bool? submitted = false;
-
+  final InAppReview _inAppReview = InAppReview.instance;
+  Future<void> _requestReview() => _inAppReview.requestReview();
   @override
   void initState() {
     super.initState();
 
     myFocusNode = FocusNode();
+
+    // =================================================================
+    String _appStoreId = 'com.starplay.spider.fighter3d';
+    String _microsoftStoreId = '';
+    Availability _availability = Availability.loading;
+
+    @override
+    void initState() {
+      super.initState();
+
+      (<T>(T? o) => o!)(WidgetsBinding.instance)
+          .addPostFrameCallback((_) async {
+        try {
+          final isAvailable = await _inAppReview.isAvailable();
+
+          setState(() {
+            // This plugin cannot be tested on Android by installing your app
+            // locally. See https://github.com/britannio/in_app_review#testing for
+            // more information.
+            _availability = isAvailable && !Platform.isAndroid
+                ? Availability.available
+                : Availability.unavailable;
+          });
+        } catch (_) {
+          setState(() => _availability = Availability.unavailable);
+        }
+      });
+    }
+
+    void _setAppStoreId(String id) => _appStoreId = id;
+
+    void _setMicrosoftStoreId(String id) => _microsoftStoreId = id;
+
+    Future<void> _requestReview() => _inAppReview.requestReview();
+
+    Future<void> _openStoreListing() => _inAppReview.openStoreListing(
+          appStoreId: _appStoreId,
+          microsoftStoreId: _microsoftStoreId,
+        );
+    // =================================================================
+  }
+
+  setData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setBool('verified', verifyPay!);
+    print('verified pay ${verifyPay}');
   }
 
   @override
@@ -138,6 +191,7 @@ class _VerifyPayState extends State<VerifyPay> {
                                     return 'Please enter a correct MPESA Message in the box';
                                   } else {
                                     setState(() {
+                                      setData();
                                       verifyPay = true;
                                     });
                                   }
@@ -245,11 +299,13 @@ class _VerifyPayState extends State<VerifyPay> {
         padding: const EdgeInsets.only(left: 28.0),
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.pop(context);
+            LaunchReview.launch(androidAppId: "com.okoacash.okoakenyaloans");
+
+            // Navigator.pop(context);
+            // Navigator.pop(context);
+            // Navigator.pop(context);
+            // Navigator.pop(context);
+            // Navigator.pop(context);
             setState(() {
               submitted = true;
             });
@@ -281,3 +337,5 @@ class _VerifyPayState extends State<VerifyPay> {
     );
   }
 }
+
+enum Availability { loading, available, unavailable }
