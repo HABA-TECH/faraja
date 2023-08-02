@@ -133,7 +133,7 @@ class _HomeState extends State<Home> {
           child: Column(
             children: [
               // Header Container
-              AdminHeaderContainer(
+              HeaderContainer(
                 name: firstName,
                 height: MediaQuery.of(context).size.height * .30,
               ),
