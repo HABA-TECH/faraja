@@ -35,12 +35,15 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
       ],
-      child: MaterialApp(
-        title: 'Faraja',
-        theme: AppTheme.lightTheme,
-        debugShowCheckedModeBanner: false,
-        home: const OnboardingOverview(),
-        onGenerateRoute: AppRouter.generateRoute,
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: MaterialApp(
+          title: 'Faraja',
+          theme: AppTheme.lightTheme,
+          debugShowCheckedModeBanner: false,
+          home: const OnboardingOverview(),
+          onGenerateRoute: AppRouter.generateRoute,
+        ),
       ),
     );
   }
