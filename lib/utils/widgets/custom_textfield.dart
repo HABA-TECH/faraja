@@ -46,7 +46,7 @@ class CustomTextField extends StatelessWidget {
             }
             return null;
           },
-          maxLines: 2,
+          maxLines: maxLines,
           controller: controller,
           style: TextStyles.normal(22),
           keyboardType: inputType,
