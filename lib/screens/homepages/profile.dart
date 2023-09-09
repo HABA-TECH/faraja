@@ -42,9 +42,10 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    String firstNameInitial = firstName.substring(0, 1);
-    String lastNameInitial = lastName.substring(0, 1);
-
+    String firstNameInitial =
+        firstName.isNotEmpty ? firstName.substring(0, 1) : '';
+    String lastNameInitial =
+        lastName.isNotEmpty ? lastName.substring(0, 1) : '';
     String initials = "$firstNameInitial$lastNameInitial";
     return Scaffold(
       backgroundColor: Colors.grey[200],
@@ -92,7 +93,8 @@ class _ProfileState extends State<Profile> {
                           borderWidth: 5, // sets border, default 0.0
                           initialsText: Text(
                             initials,
-                            style: const TextStyle(fontSize: 40, color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: 40, color: Colors.white),
                           ), // sets initials text, set your own style, default Text('')
                           borderColor: AppColors
                               .greyPAGEBLUE!, // sets border color, default Colors.white

@@ -25,9 +25,6 @@ class _LoanOffersState extends State<LoanOffers> {
   //   });
   // }
 
-
-   
-
   double? interest;
   String? loanType;
 
@@ -162,26 +159,21 @@ class _LoanOffersState extends State<LoanOffers> {
                               children: [
                                 Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Container(
-                                    // height: 60,
-                                    // color: Colors.red,
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          "0.5 %",
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "0.5 %",
+                                        style: TextStyles.h1(15, Colors.black),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Interest",
                                           style:
-                                              TextStyles.h1(15, Colors.black),
+                                              TextStyles.h1(13, Colors.indigo),
                                         ),
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            "Interest",
-                                            style: TextStyles.h1(
-                                                13, Colors.indigo),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
