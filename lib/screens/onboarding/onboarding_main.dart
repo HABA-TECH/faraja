@@ -20,10 +20,11 @@ class OnboardingOverview extends StatefulWidget {
 
 bool _isInterstitialAdLoaded = false;
 _showInterstitialAd() {
-  if (_isInterstitialAdLoaded == true)
+  if (_isInterstitialAdLoaded == true) {
     FacebookInterstitialAd.showInterstitialAd();
-  else
+  } else {
     print("Interstial Ad not yet loaded!");
+  }
 }
 
 void _loadInterstitialAd() {
@@ -57,7 +58,6 @@ class _OnboardingOverviewState extends State<OnboardingOverview> {
       },
       bottomButtonColor: AppColors.primaryColor,
       pages: [
-        // little by little
         Align(
           child: WhatsNewPage(
             title: Text(
@@ -112,7 +112,7 @@ class _OnboardingOverviewState extends State<OnboardingOverview> {
               style: TextStyles.h2(35),
             ),
             features: [
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width / 2,
                 height: 200,
                 // color: Colors.blue,
@@ -126,8 +126,8 @@ class _OnboardingOverviewState extends State<OnboardingOverview> {
                 ),
               ),
               WhatsNewFeature(
-                title: Text('Quick approval'),
-                description: Text(
+                title: const Text('Quick approval'),
+                description: const Text(
                   ' ',
                 ),
                 icon: Icon(CupertinoIcons.sparkles,
@@ -156,7 +156,7 @@ class _OnboardingOverviewState extends State<OnboardingOverview> {
               style: TextStyles.h2(35),
             ),
             features: [
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width / 2,
                 height: 200,
                 // color: Colors.blue,
@@ -170,7 +170,7 @@ class _OnboardingOverviewState extends State<OnboardingOverview> {
                 ),
               ),
               WhatsNewFeature(
-                title: Text(
+                title: const Text(
                   "Pay at your own pace",
                 ),
                 description: const Text(

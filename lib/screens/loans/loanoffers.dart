@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:haba/screens/homepages/loanactivities.dart';
 import 'package:haba/screens/loans/loanapplication.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:haba/utils/paddingUtil.dart';
@@ -7,8 +6,6 @@ import 'package:haba/utils/widgets/doublesidedContainer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../routes/appRouter.dart';
-import '../../utils/colors.dart';
-import '../../utils/widgets/custom_textfield.dart';
 
 class LoanOffers extends StatefulWidget {
   const LoanOffers({super.key});

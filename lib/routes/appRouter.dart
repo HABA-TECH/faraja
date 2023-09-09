@@ -30,8 +30,8 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
-    Logger _logger = Logger();
-    _logger.wtf("Route Name:\n${settings.name}");
+    Logger logger = Logger();
+    logger.wtf("Route Name:\n${settings.name}");
     switch (settings.name) {
       case splashScreenRoute:
         return _route(
@@ -41,7 +41,7 @@ class AppRouter {
 
       case dash:
         return _route(
-          Dashboard(),
+          const Dashboard(),
           dash,
         );
       case adminHome:

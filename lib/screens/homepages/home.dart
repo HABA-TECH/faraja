@@ -109,22 +109,22 @@ class _HomeState extends State<Home> {
             child: ListView(
           children: [
             ListTile(
-              leading: Icon(Icons.analytics),
-              title: Text('Activities'),
+              leading: const Icon(Icons.analytics),
+              title: const Text('Activities'),
               onTap: () {
                 // Navigator.pushNamed(context, AppRouter.);
               },
             ),
             ListTile(
-              leading: Icon(Icons.credit_card),
-              title: Text('Loans'),
+              leading: const Icon(Icons.credit_card),
+              title: const Text('Loans'),
               onTap: () {
                 Navigator.pushNamed(context, AppRouter.loanOffers);
               },
             ),
             ListTile(
-              leading: Icon(Icons.person),
-              title: Text('Profile'),
+              leading: const Icon(Icons.person),
+              title: const Text('Profile'),
               onTap: () {
                 // Navigator.pushNamed(context, AppRouter.pro);
               },
@@ -133,8 +133,8 @@ class _HomeState extends State<Home> {
               onTap: () {
                 Navigator.pushNamed(context, AppRouter.register);
               },
-              leading: Icon(Icons.person),
-              title: Text('Log Out'),
+              leading: const Icon(Icons.person),
+              title: const Text('Log Out'),
             ),
           ],
         )),
@@ -152,7 +152,7 @@ class _HomeState extends State<Home> {
               ),
 
               // Quick Links
-              Container(
+              SizedBox(
                 // color: Colors.red,
                 height: MediaQuery.of(context).size.height / 2,
                 width: MediaQuery.of(context).size.width * .9,

@@ -327,7 +327,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                     padding: const EdgeInsets.only(top: 15),
                                     child: CustomTextField(
                                       text: 'First Name',
-                                      hintText: "$firstName",
+                                      hintText: firstName,
                                       color: AppColors.greyPAGEBLUE,
                                       controller: educationController,
                                       inputType: TextInputType.text,
@@ -341,7 +341,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                     padding: const EdgeInsets.only(top: 15),
                                     child: CustomTextField(
                                       text: 'Last Name',
-                                      hintText: "$lastName",
+                                      hintText: lastName,
                                       color: AppColors.greyPAGEBLUE,
                                       controller: employmentController,
                                       inputType: TextInputType.text,
@@ -373,7 +373,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                                       picked.toString());
 
                                               print(
-                                                  'FORMATTEDdATE ${formattedDate}');
+                                                  'FORMATTEDdATE $formattedDate');
 
                                               _selectedDate = picked;
                                             });
@@ -407,7 +407,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                         )),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15,
                                 ),
                                 Align(
@@ -483,7 +483,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15,
                                 ),
                                 Align(
@@ -607,7 +607,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
               ),
               backgroundColor: _currentStep == 2
                   ? AppColors.greyPAGEBLUE
-                  : Color.fromARGB(
+                  : const Color.fromARGB(
                       255, 146, 145, 215), // Change the color as needed
               foregroundColor: Colors.white, // Change the color as needed
               padding: const EdgeInsets.all(16), // Change the padding as needed
@@ -622,7 +622,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
             alignment: Alignment.center,
             child: Text(
               _currentStep == 2 ? 'Submit' : 'Next',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
               ),
             ),

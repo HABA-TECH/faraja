@@ -10,12 +10,9 @@ import '../../routes/appRouter.dart';
 import '../../utils/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../utils/widgets/custom_button.dart';
-import '../../utils/widgets/custom_textfield.dart';
 
 class LoaApplication extends StatefulWidget {
   final double interest;
@@ -32,7 +29,7 @@ class _LoaApplicationState extends State<LoaApplication> {
 
   double totalPremium = 500;
   String randomVal() {
-    var rng = new Random();
+    var rng = Random();
     int randomNumber = 15 + rng.nextInt(7);
     return (randomNumber * 10).toString();
   }
@@ -204,7 +201,7 @@ class _LoaApplicationState extends State<LoaApplication> {
                         // LOAN AMOUNT
                         SliderTheme(
                           data: SliderTheme.of(context).copyWith(
-                            activeTrackColor: Color(0xFF9284F9),
+                            activeTrackColor: const Color(0xFF9284F9),
                             inactiveTrackColor: Colors.white,
                             thumbColor: const Color(0xFF9284F9),
                             thumbShape: const RoundSliderThumbShape(
@@ -252,7 +249,7 @@ class _LoaApplicationState extends State<LoaApplication> {
                         ),
                         SliderTheme(
                           data: SliderTheme.of(context).copyWith(
-                            activeTrackColor: Color(0xFF9284F9),
+                            activeTrackColor: const Color(0xFF9284F9),
                             inactiveTrackColor: Colors.white,
                             thumbColor: const Color(0xFF9284F9),
                             thumbShape: const RoundSliderThumbShape(
@@ -535,7 +532,7 @@ class _LoaApplicationState extends State<LoaApplication> {
                             return Text('Error: ${snapshot.error}');
                           } else {
                             return SingleChildScrollView(
-                              child: Container(
+                              child: SizedBox(
                                 height: 450,
                                 child: ListView.builder(
                                   itemCount: snapshot.data!.length,
@@ -572,10 +569,10 @@ class _LoaApplicationState extends State<LoaApplication> {
                                                 imageUrl: item.imageUrl ??
                                                     "https://picsum.photos/200/300",
                                                 placeholder: (context, url) =>
-                                                    Container(
+                                                    const SizedBox(
                                                         height: 50,
                                                         child:
-                                                            const CircularProgressIndicator()),
+                                                            CircularProgressIndicator()),
                                                 errorWidget:
                                                     (context, url, error) {
                                                   // print(

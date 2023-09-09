@@ -3,17 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:haba/utils/paddingUtil.dart';
-import 'package:haba/utils/widgets/doublesidedContainer.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../routes/appRouter.dart';
 import '../../utils/colors.dart';
 import '../../utils/widgets/custom_button.dart';
-import '../../utils/widgets/custom_textfield.dart';
 
 class VerifyPay extends StatefulWidget {
   const VerifyPay({super.key});
@@ -37,9 +34,9 @@ class _VerifyPayState extends State<VerifyPay> {
     myFocusNode = FocusNode();
 
     // =================================================================
-    String _appStoreId = 'com.starplay.spider.fighter3d';
-    String _microsoftStoreId = '';
-    Availability _availability = Availability.loading;
+    String appStoreId = 'com.starplay.spider.fighter3d';
+    String microsoftStoreId = '';
+    Availability availability = Availability.loading;
 
     @override
     void initState() {
@@ -54,25 +51,25 @@ class _VerifyPayState extends State<VerifyPay> {
             // This plugin cannot be tested on Android by installing your app
             // locally. See https://github.com/britannio/in_app_review#testing for
             // more information.
-            _availability = isAvailable && !Platform.isAndroid
+            availability = isAvailable && !Platform.isAndroid
                 ? Availability.available
                 : Availability.unavailable;
           });
         } catch (_) {
-          setState(() => _availability = Availability.unavailable);
+          setState(() => availability = Availability.unavailable);
         }
       });
     }
 
-    void _setAppStoreId(String id) => _appStoreId = id;
+    void setAppStoreId(String id) => appStoreId = id;
 
-    void _setMicrosoftStoreId(String id) => _microsoftStoreId = id;
+    void setMicrosoftStoreId(String id) => microsoftStoreId = id;
 
-    Future<void> _requestReview() => _inAppReview.requestReview();
+    Future<void> requestReview() => _inAppReview.requestReview();
 
-    Future<void> _openStoreListing() => _inAppReview.openStoreListing(
-          appStoreId: _appStoreId,
-          microsoftStoreId: _microsoftStoreId,
+    Future<void> openStoreListing() => _inAppReview.openStoreListing(
+          appStoreId: appStoreId,
+          microsoftStoreId: microsoftStoreId,
         );
     // =================================================================
   }
@@ -81,7 +78,7 @@ class _VerifyPayState extends State<VerifyPay> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.setBool('verified', verifyPay!);
-    print('verified pay ${verifyPay}');
+    print('verified pay $verifyPay');
   }
 
   @override
@@ -219,7 +216,7 @@ class _VerifyPayState extends State<VerifyPay> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
 
@@ -266,7 +263,7 @@ class _VerifyPayState extends State<VerifyPay> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
                                     Align(
@@ -276,7 +273,7 @@ class _VerifyPayState extends State<VerifyPay> {
                                         style: TextStyles.title(),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
                                     Align(
@@ -297,7 +294,7 @@ class _VerifyPayState extends State<VerifyPay> {
         ),
       ),
       floatingActionButton: Padding(
-        padding: EdgeInsets.only(left: 28.0),
+        padding: const EdgeInsets.only(left: 28.0),
         child: ElevatedButton(
           onPressed: () {
             showMaterialModalBottomSheet(
@@ -369,7 +366,7 @@ class _VerifyPayState extends State<VerifyPay> {
                                 Navigator.pop(context);
                                 Navigator.pop(context);
                                 Future.delayed(
-                                    Duration(
+                                    const Duration(
                                       seconds: 5,
                                     ), () {
                                   LaunchReview.launch(
@@ -402,7 +399,7 @@ class _VerifyPayState extends State<VerifyPay> {
                   verifyPay == true ? AppColors.greyPAGEBLUE : Colors.grey,
               foregroundColor: Colors.white, // Change the color as needed
               padding: const EdgeInsets.all(16), // Change the padding as needed
-              animationDuration: Duration(milliseconds: 1000)),
+              animationDuration: const Duration(milliseconds: 1000)),
           child: Container(
             width: double.infinity,
             height: 40,
@@ -411,7 +408,7 @@ class _VerifyPayState extends State<VerifyPay> {
             ),
             // Make the button expand the full width
             alignment: Alignment.center,
-            child: Text(
+            child: const Text(
               'Submit',
               style: TextStyle(fontSize: 18),
             ),

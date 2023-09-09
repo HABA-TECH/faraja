@@ -2,13 +2,11 @@ import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:haba/utils/paddingUtil.dart';
-import 'package:haba/utils/widgets/doublesidedContainer.dart';
 import 'package:haba/utils/widgets/profileContainer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../routes/appRouter.dart';
 import '../../utils/colors.dart';
-import '../../utils/widgets/custom_textfield.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -94,7 +92,7 @@ class _ProfileState extends State<Profile> {
                           borderWidth: 5, // sets border, default 0.0
                           initialsText: Text(
                             initials,
-                            style: TextStyle(fontSize: 40, color: Colors.white),
+                            style: const TextStyle(fontSize: 40, color: Colors.white),
                           ), // sets initials text, set your own style, default Text('')
                           borderColor: AppColors
                               .greyPAGEBLUE!, // sets border color, default Colors.white

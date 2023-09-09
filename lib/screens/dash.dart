@@ -2,12 +2,13 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:haba/screens/homepages/loanactivities.dart';
 import 'package:haba/screens/homepages/home.dart';
-import 'package:haba/screens/homepages/loans.dart';
 import 'package:haba/screens/homepages/profile.dart';
 import 'package:haba/screens/loans/loanoffers.dart';
 import 'package:haba/utils/colors.dart';
 
 class Dashboard extends StatefulWidget {
+  const Dashboard({super.key});
+
   @override
   _DashboardState createState() => _DashboardState();
 }
