@@ -7,7 +7,7 @@ import 'flavors.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
-  OneSignal.shared.setAppId('com.faraja.app');
+  OneSignal.shared.setAppId('com.faraja.android');
   await OneSignal.shared.consentGranted(true);
   OneSignal.shared
       .promptUserForPushNotificationPermission()

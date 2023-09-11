@@ -74,16 +74,16 @@ flavorizr:
       app:
         name: "Faraja"
       android:
-        applicationId: "com.faraja.app"
+        applicationId: "com.faraja.android"
       ios:
-        bundleId: "com.faraja.app"
+        bundleId: "com.faraja.android"
     live:
       app:
         name: "Faraja"
       android:
-        applicationId: "com.faraja.app"
+        applicationId: "com.faraja.android"
       ios:
-        bundleId: "com.faraja.app"
+        bundleId: "com.faraja.android"
 flutter_launcher_icons:
   android: true
   ios: false

@@ -1,4 +1,4 @@
-package com.faraja.app
+package com.faraja.android
 
 import io.flutter.embedding.android.FlutterActivity
 

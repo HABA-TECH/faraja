@@ -370,7 +370,7 @@ class _VerifyPayState extends State<VerifyPay> {
                                       seconds: 5,
                                     ), () {
                                   LaunchReview.launch(
-                                      androidAppId: "com.faraja.app");
+                                      androidAppId: "com.faraja.android");
                                 });
                                 setState(() {
                                   submitted = true;

@@ -5,6 +5,7 @@ import 'package:haba/screens/onboarding/onboarding_main.dart';
 import 'package:haba/utils/AppTheme.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -19,6 +20,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    FlutterNativeSplash.remove();
     loadData();
   }
 
