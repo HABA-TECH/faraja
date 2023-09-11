@@ -63,7 +63,7 @@ class _LoginState extends State<Login> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       phoneNum = prefs.getString('phone') ?? '0711';
-      password = prefs.getString('pass') ?? '';
+      password = prefs.getString('pass') ?? 'test';
       // password = prefs.getString('password') ?? 'test@gmail.com';
 
       // prefs.setString('lastName', lastName);
