@@ -142,25 +142,34 @@ class _ProfileState extends State<Profile> {
                     const SizedBox(
                       height: 10,
                     ),
-                    ProfileContainer(
-                        onPressed: () {},
-                        buttonText: 'Invite Friends',
-                        icon: Icon(Icons.people, color: Colors.grey[800])),
+                    Visibility(
+                      visible: false,
+                      child: ProfileContainer(
+                          onPressed: () {},
+                          buttonText: 'Invite Friends',
+                          icon: Icon(Icons.people, color: Colors.grey[800])),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
-                    ProfileContainer(
-                        onPressed: () {},
-                        buttonText: 'Account Security',
-                        icon: Icon(Icons.lock, color: Colors.grey[800])),
+                    Visibility(
+                      visible: false,
+                      child: ProfileContainer(
+                          onPressed: () {},
+                          buttonText: 'Account Security',
+                          icon: Icon(Icons.lock, color: Colors.grey[800])),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
-                    ProfileContainer(
-                        onPressed: () {},
-                        buttonText: 'Help and Feedback',
-                        icon:
-                            Icon(Icons.message_sharp, color: Colors.grey[800])),
+                    Visibility(
+                      visible: false,
+                      child: ProfileContainer(
+                          onPressed: () {},
+                          buttonText: 'Help and Feedback',
+                          icon:
+                              Icon(Icons.message_sharp, color: Colors.grey[800])),
+                    ),
                     const SizedBox(
                       height: 10,
                     )
