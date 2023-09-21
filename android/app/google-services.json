@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "594741617193",
+    "project_id": "faraja-5e953",
+    "storage_bucket": "faraja-5e953.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594741617193:android:0890edff276bc346b3f238",
+        "android_client_info": {
+          "package_name": "com.faraja.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594741617193-a9ri0e4it2c56qq6uhvfc92gq2elghqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpR9oIswLkjR0xINl930t301_dbNeGdlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594741617193-a9ri0e4it2c56qq6uhvfc92gq2elghqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

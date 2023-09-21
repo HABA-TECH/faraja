@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/services.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:haba/root.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'flavors.dart';
 
 void main() async {
-  
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsFlutterBinding.ensureInitialized();
+  OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+  OneSignal.shared.setAppId('com.faraja.android');
+  await OneSignal.shared.consentGranted(true);
+  OneSignal.shared
+      .promptUserForPushNotificationPermission()
+      .then((accepted) {});
   F.appFlavor = Flavor.dev;
-  
-  await dotenv.load(fileName: ".env");
-  runApp( MyApp());
+
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarColor: Colors.white,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  ));
+
+  // await dotenv.load(fileName: ".env");
+  runApp(const MyApp());
 }
