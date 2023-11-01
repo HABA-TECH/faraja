@@ -1,5 +1,6 @@
-
+import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
+import 'package:haba/services/ads/ad_config.dart';
 import 'package:haba/utils/colors.dart';
 import 'package:haba/utils/widgets/homeContainers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,7 +26,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-   // _loadInterstitialAd();
+    // _loadInterstitialAd();
     loadData();
   }
 
@@ -137,49 +138,76 @@ class _HomeState extends State<Home> {
           ),
         ],
       )),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Header Container
-            HeaderContainer(
-              name: firstName,
-              height: MediaQuery.of(context).size.height * .30,
-            ),
-
-            const SizedBox(
-              height: 20,
-            ),
-
-            // Quick Links
-            SizedBox(
-              // color: Colors.red,
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width * .9,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Quick Links',
-                        style: TextStyles.h1(22, Colors.grey[700]),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    // HomeContainers
-                    const HomeContainers()
-                  ],
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                // Header Container
+                HeaderContainer(
+                  name: firstName,
+                  height: MediaQuery.of(context).size.height * .30,
                 ),
-              ),
-            )
-            // Padding(
-            //     padding: const EdgeInsets.only(left: 17),
-            //     child:
-          ],
-        ),
+
+                const SizedBox(
+                  height: 20,
+                ),
+
+                // Quick Links
+                SizedBox(
+                  // color: Colors.red,
+                  height: MediaQuery.of(context).size.height / 2,
+                  width: MediaQuery.of(context).size.width * .9,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Quick Links',
+                            style: TextStyles.h1(22, Colors.grey[700]),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        // HomeContainers
+                        const HomeContainers()
+                      ],
+                    ),
+                  ),
+                )
+                // Padding(
+                //     padding: const EdgeInsets.only(left: 17),
+                //     child:
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: FacebookBannerAd(
+              placementId: AdConfig.bannerPlacementID,
+              bannerSize: BannerSize.STANDARD,
+              listener: (result, value) {
+                switch (result) {
+                  case BannerAdResult.ERROR:
+                    print("Error: $value");
+                    break;
+                  case BannerAdResult.LOADED:
+                    print("Loaded: $value");
+                    break;
+                  case BannerAdResult.CLICKED:
+                    print("Clicked: $value");
+                    break;
+                  case BannerAdResult.LOGGING_IMPRESSION:
+                    print("Logging Impression: $value");
+                    break;
+                }
+              },
+            ),
+          )
+        ],
       ),
     );
   }

@@ -1,8 +1,6 @@
 import 'package:cupertino_onboarding/cupertino_onboarding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:haba/services/ads/ad_config.dart';
-import 'package:haba/services/ads/manager/banner_sdk.dart';
-import 'package:haba/services/ads/manager/interstitial_sdk.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:logger/logger.dart';
 import 'package:lottie/lottie.dart';
@@ -59,9 +57,8 @@ class _OnboardingOverviewState extends State<OnboardingOverview> {
     return CupertinoOnboarding(
       // onPressed: () {},
       onPressedOnLastPage: () async {
-        await BannerTool.loadBannerAd();
-        await BannerTool.bannerAdcheck();
-        await BannerTool.showBannerAd();
+        Navigator.pushNamedAndRemoveUntil(
+            context, AppRouter.dash, (route) => false);
       },
       bottomButtonColor: AppColors.primaryColor,
       pages: [
