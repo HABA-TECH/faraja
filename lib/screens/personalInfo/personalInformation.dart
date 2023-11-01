@@ -581,7 +581,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
         child: ElevatedButton(
           onPressed: loopDone
               ? null
-              : () {
+              : () async {
                   isFilled == true
                       ? setState(() {
                           _currentStep++;

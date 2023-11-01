@@ -1,6 +1,8 @@
 import 'package:cupertino_onboarding/cupertino_onboarding.dart';
-import 'package:facebook_audience_network/ad/ad_interstitial.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:haba/services/ads/ad_config.dart';
+import 'package:haba/services/ads/manager/banner_sdk.dart';
+import 'package:haba/services/ads/manager/interstitial_sdk.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:logger/logger.dart';
 import 'package:lottie/lottie.dart';
@@ -18,43 +20,48 @@ class OnboardingOverview extends StatefulWidget {
   State<OnboardingOverview> createState() => _OnboardingOverviewState();
 }
 
-bool _isInterstitialAdLoaded = false;
-_showInterstitialAd() {
-  if (_isInterstitialAdLoaded == true) {
-    FacebookInterstitialAd.showInterstitialAd();
-  } else {
-    print("Interstial Ad not yet loaded!");
-  }
-}
+// bool _isInterstitialAdLoaded = false;
+// _showInterstitialAd() {
+//   if (_isInterstitialAdLoaded == true) {
+//     FacebookInterstitialAd.showInterstitialAd();
+//   } else {
+//     print("Interstial Ad not yet loaded!");
+//   }
+// }
 
-void _loadInterstitialAd() {
-  FacebookInterstitialAd.loadInterstitialAd(
-    // placementId: "YOUR_PLACEMENT_ID",
-    placementId: "b64c03441d0785",
-    listener: (result, value) {
-      print(">> FAN > Interstitial Ad: $result --> $value");
-      if (result == InterstitialAdResult.LOADED) _isInterstitialAdLoaded = true;
+// void _loadInterstitialAd() {
+//   FacebookInterstitialAd.loadInterstitialAd(
+//     // placementId: "YOUR_PLACEMENT_ID",
+//     placementId: "b64c03441d0785",
+//     listener: (result, value) {
+//       print(">> FAN > Interstitial Ad: $result --> $value");
+//       if (result == InterstitialAdResult.LOADED) _isInterstitialAdLoaded = true;
 
-      /// Once an Interstitial Ad has been dismissed and becomes invalidated,
-      /// load a fresh Ad by calling this function.
-      if (result == InterstitialAdResult.DISMISSED &&
-          value["invalidated"] == true) {
-        _isInterstitialAdLoaded = false;
-        // _loadInterstitialAd();
-      }
-    },
-  );
-}
+//       /// Once an Interstitial Ad has been dismissed and becomes invalidated,
+//       /// load a fresh Ad by calling this function.
+//       if (result == InterstitialAdResult.DISMISSED &&
+//           value["invalidated"] == true) {
+//         _isInterstitialAdLoaded = false;
+//         // _loadInterstitialAd();
+//       }
+//     },
+//   );
+// }
 
 class _OnboardingOverviewState extends State<OnboardingOverview> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Logger logger = Logger();
     return CupertinoOnboarding(
       // onPressed: () {},
-      onPressedOnLastPage: () {
-        Navigator.popAndPushNamed(context, AppRouter.login);
-        logger.i('To Register screen');
+      onPressedOnLastPage: () async {
+        await BannerTool.loadBannerAd();
+        await BannerTool.bannerAdcheck();
+        await BannerTool.showBannerAd();
       },
       bottomButtonColor: AppColors.primaryColor,
       pages: [

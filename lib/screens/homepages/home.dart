@@ -1,4 +1,4 @@
-import 'package:facebook_audience_network/facebook_audience_network.dart';
+
 import 'package:flutter/material.dart';
 import 'package:haba/utils/colors.dart';
 import 'package:haba/utils/widgets/homeContainers.dart';
@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    _loadInterstitialAd();
+   // _loadInterstitialAd();
     loadData();
   }
 
@@ -42,21 +42,21 @@ class _HomeState extends State<Home> {
     });
   }
 
-  void _loadInterstitialAd() {
-    FacebookInterstitialAd.loadInterstitialAd(
-        placementId: FB_INTERSTITIAL_AD_ID,
-        listener: (result, value) {
-          if (result == InterstitialAdResult.LOADED) {
-            isInterstitialAdLoaded = true;
-          }
+  // void _loadInterstitialAd() {
+  //   FacebookInterstitialAd.loadInterstitialAd(
+  //       placementId: FB_INTERSTITIAL_AD_ID,
+  //       listener: (result, value) {
+  //         if (result == InterstitialAdResult.LOADED) {
+  //           isInterstitialAdLoaded = true;
+  //         }
 
-          if (result == InterstitialAdResult.DISMISSED &&
-              value["invalidated"] == true) {
-            isInterstitialAdLoaded = false;
-            _loadInterstitialAd();
-          }
-        });
-  }
+  //         if (result == InterstitialAdResult.DISMISSED &&
+  //             value["invalidated"] == true) {
+  //           isInterstitialAdLoaded = false;
+  //           _loadInterstitialAd();
+  //         }
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -71,21 +71,21 @@ class _HomeState extends State<Home> {
                 color: Colors.white,
               ),
               onPressed: () {
-                FacebookNativeAd(
-                  placementId: "996101281548472_996122818212985",
-                  adType: NativeAdType.NATIVE_BANNER_AD,
-                  bannerAdSize: NativeBannerAdSize.HEIGHT_100,
-                  width: double.infinity,
-                  backgroundColor: Colors.blue,
-                  titleColor: Colors.white,
-                  descriptionColor: Colors.white,
-                  buttonColor: Colors.deepPurple,
-                  buttonTitleColor: Colors.white,
-                  buttonBorderColor: Colors.white,
-                  listener: (result, value) {
-                    print("Native Ad: $result --> $value");
-                  },
-                );
+                // FacebookNativeAd(
+                //   placementId: "996101281548472_996122818212985",
+                //   adType: NativeAdType.NATIVE_BANNER_AD,
+                //   bannerAdSize: NativeBannerAdSize.HEIGHT_100,
+                //   width: double.infinity,
+                //   backgroundColor: Colors.blue,
+                //   titleColor: Colors.white,
+                //   descriptionColor: Colors.white,
+                //   buttonColor: Colors.deepPurple,
+                //   buttonTitleColor: Colors.white,
+                //   buttonBorderColor: Colors.white,
+                //   listener: (result, value) {
+                //     print("Native Ad: $result --> $value");
+                //   },
+                // );
                 // _loadInterstitialAd();
                 // open notifications
               },
