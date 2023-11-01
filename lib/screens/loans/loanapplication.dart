@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
+import 'package:haba/services/ads/ad_config.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:haba/utils/paddingUtil.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -441,8 +443,20 @@ class _LoaApplicationState extends State<LoaApplication> {
                               Column(
                                 children: [
                                   IconButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
+                                    onPressed: () async {
+                                      await FacebookInterstitialAd
+                                          .loadInterstitialAd(
+                                        placementId:
+                                            AdConfig.interstitialPlacementID,
+                                        listener: (result, value) {
+                                          if (result ==
+                                              InterstitialAdResult.LOADED) {
+                                            FacebookInterstitialAd
+                                                .showInterstitialAd(
+                                                    delay: 5000);
+                                          }
+                                        },
+                                      ).then((value) => Navigator.pop(context));
                                     },
                                     icon: const Icon(Icons.close_sharp),
                                   ),
@@ -615,9 +629,23 @@ class _LoaApplicationState extends State<LoaApplication> {
                                 height: 60,
                                 radius: 8,
                                 color: AppColors.greyPAGEBLUE,
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, AppRouter.verify);
+                                onPressed: () async {
+                                  await FacebookInterstitialAd
+                                      .loadInterstitialAd(
+                                    placementId:
+                                        AdConfig.interstitialPlacementID,
+                                    listener: (result, value) {
+                                      if (result ==
+                                          InterstitialAdResult.LOADED) {
+                                        FacebookInterstitialAd
+                                            .showInterstitialAd(delay: 5000);
+                                      }
+                                    },
+                                  );
+                                  if (context.mounted) {
+                                    Navigator.pushNamed(
+                                        context, AppRouter.verify);
+                                  }
 
                                   // Navigator.pop(context);
                                   // Navigator.pop(context);

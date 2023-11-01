@@ -1,3 +1,4 @@
+import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
 import 'package:haba/providers/user_provider.dart';
 import 'package:haba/routes/appRouter.dart';
@@ -16,7 +17,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late bool session = false;
-
   @override
   void initState() {
     super.initState();
@@ -29,6 +29,9 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       session = prefs.getBool('session') ?? false;
     });
+    FacebookAudienceNetwork.init(
+        iOSAdvertiserTrackingEnabled: true //default false
+        );
   }
 
   @override

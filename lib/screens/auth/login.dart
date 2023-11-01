@@ -1,4 +1,3 @@
-import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
 import 'package:haba/routes/appRouter.dart';
 import 'package:haba/utils/constants.dart';
@@ -29,28 +28,28 @@ class _LoginState extends State<Login> {
   bool isInterstitialAdLoaded = false;
   @override
   void initState() {
-    FacebookAudienceNetwork.init(
-      testingId: "37b1da9d-b48c-4103-a393-2e095e734bd6", //optional
-    );
+    // FacebookAudienceNetwork.init(
+    //   testingId: "37b1da9d-b48c-4103-a393-2e095e734bd6", //optional
+    // );
     super.initState();
     loadData();
   }
 
-  void _loadInterstitialAd() {
-    FacebookInterstitialAd.loadInterstitialAd(
-        placementId: FB_INTERSTITIAL_AD_ID,
-        listener: (result, value) {
-          if (result == InterstitialAdResult.LOADED) {
-            isInterstitialAdLoaded = true;
-          }
+  // void _loadInterstitialAd() {
+  //   FacebookInterstitialAd.loadInterstitialAd(
+  //       placementId: FB_INTERSTITIAL_AD_ID,
+  //       listener: (result, value) {
+  //         if (result == InterstitialAdResult.LOADED) {
+  //           isInterstitialAdLoaded = true;
+  //         }
 
-          if (result == InterstitialAdResult.DISMISSED &&
-              value["invalidated"] == true) {
-            isInterstitialAdLoaded = false;
-            _loadInterstitialAd();
-          }
-        });
-  }
+  //         if (result == InterstitialAdResult.DISMISSED &&
+  //             value["invalidated"] == true) {
+  //           isInterstitialAdLoaded = false;
+  //           _loadInterstitialAd();
+  //         }
+  //       });
+  // }
 
   void setSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -155,7 +154,7 @@ class _LoginState extends State<Login> {
                         child: CustomButton(
                           buttonText: 'Login',
                           onPressed: () {
-                            _loadInterstitialAd();
+                           // _loadInterstitialAd();
                             // FacebookInterstitialAd.loadInterstitialAd(
                             //   placementId:
                             //       "996101281548472_996123001546300",
