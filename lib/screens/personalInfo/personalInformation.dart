@@ -1,5 +1,7 @@
+import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
 import 'package:haba/routes/appRouter.dart';
+import 'package:haba/services/ads/ad_config.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:haba/utils/paddingUtil.dart';
 import 'package:intl/intl.dart';
@@ -583,13 +585,24 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
               ? null
               : () async {
                   isFilled == true
-                      ? setState(() {
+                      ? setState(() async {
                           _currentStep++;
+
                           if (_currentStep > 2) {
                             _currentStep = 0;
                             loopDone = true;
 
-                            Navigator.pushNamed(context, AppRouter.loanOffers);
+                            await FacebookInterstitialAd.loadInterstitialAd(
+                              placementId: AdConfig.interstitialPlacementID,
+                              listener: (result, value) {
+                                if (result == InterstitialAdResult.LOADED) {
+                                  FacebookInterstitialAd.showInterstitialAd(
+                                      delay: 5000);
+                                }
+                              },
+                            ).then((value) => Navigator.pushNamed(
+                                context, AppRouter.loanOffers));
+
                             setState(() {
                               isFilled == false;
                             });

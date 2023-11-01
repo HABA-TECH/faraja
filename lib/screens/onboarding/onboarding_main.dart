@@ -1,4 +1,5 @@
 import 'package:cupertino_onboarding/cupertino_onboarding.dart';
+import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:haba/services/ads/ad_config.dart';
 import 'package:haba/utils/TextStyles.dart';
@@ -57,8 +58,18 @@ class _OnboardingOverviewState extends State<OnboardingOverview> {
     return CupertinoOnboarding(
       // onPressed: () {},
       onPressedOnLastPage: () async {
-        Navigator.pushNamedAndRemoveUntil(
-            context, AppRouter.dash, (route) => false);
+        await FacebookInterstitialAd.loadInterstitialAd(
+          placementId: AdConfig.interstitialPlacementID,
+          listener: (result, value) {
+            if (result == InterstitialAdResult.LOADED) {
+              FacebookInterstitialAd.showInterstitialAd(delay: 5000);
+            }
+          },
+        );
+        if (context.mounted) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, AppRouter.dash, (route) => false);
+        }
       },
       bottomButtonColor: AppColors.primaryColor,
       pages: [

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:haba/services/ads/ad_config.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:haba/utils/paddingUtil.dart';
 import 'package:haba/utils/widgets/doublesidedContainer.dart';
@@ -104,188 +106,219 @@ class _LoanActivitiesState extends State<LoanActivities> {
           },
         ),
       ),
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Container(
-              color: Colors.grey[200],
-              height: MediaQuery.of(context).size.height,
-            ),
-            Padding(
-              padding: AppPadding.regularPadding,
-              child: Container(
-                color: Colors.grey[200],
-                // height: MediaQuery.of(context).size.height,
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Loan Activity',
-                        style: TextStyles.title(),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "My Loan Activity",
-                        style: TextStyles.light(),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    verifyPay == false
-                        ? Center(
-                            child: Text(
-                              "You have no active loan yet. \nVisit Application on homepage to Apply Now",
-                              style: TextStyles.normal(
-                                15,
-                                Colors.grey[800],
-                              ),
-                            ),
-                          )
-                        : Column(
-                            children: <Widget>[
-                              const SizedBox(
-                                height: 20,
-                              ),
-
-                              // _____________________________________
-
-                              // test 2
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .pushNamed(AppRouter.apply);
-                                },
-                                child: DoubleContainer2(
-                                  child1: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 12.0),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Container(
-                                            height: 40,
-                                            width: 40,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                color: const Color(0xFFF1E5E9)),
-                                            child: const Icon(
-                                              Icons.credit_card,
-                                              color: Colors.green,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        loanType!,
-                                        style: TextStyles.normal(16),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 12.0),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Container(
-                                            height: 40,
-                                            width: 90,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                color: Colors.green),
-                                            child: Center(
-                                              child: Text(
-                                                "Pending",
-                                                style: TextStyles.h1(
-                                                    10, Colors.white),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  child2: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Container(
-                                              // height: 60,
-                                              // color: Colors.red,
-                                              child: Column(
-                                                children: [
-                                                  Text(
-                                                    "$interest",
-                                                    style: TextStyles.h1(
-                                                        15, Colors.black),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.centerLeft,
-                                                    child: Text(
-                                                      "Interest",
-                                                      style: TextStyles.h1(
-                                                          13, Colors.indigo),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Container(
-                                              // height: 60,
-                                              // color: Colors.red,
-                                              child: Column(
-                                                children: [
-                                                  Text(
-                                                    "KSH ${loanAmount!}",
-                                                    style: TextStyles.h1(
-                                                        15, Colors.black),
-                                                  ),
-                                                  Text(
-                                                    "Maximum amount",
-                                                    style: TextStyles.h1(
-                                                        12, Colors.grey),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Stack(
+              children: [
+                Container(
+                  color: Colors.grey[200],
+                  height: MediaQuery.of(context).size.height,
+                ),
+                Padding(
+                  padding: AppPadding.regularPadding,
+                  child: Container(
+                    color: Colors.grey[200],
+                    // height: MediaQuery.of(context).size.height,
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Loan Activity',
+                            style: TextStyles.title(),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "My Loan Activity",
+                            style: TextStyles.light(),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        verifyPay == false
+                            ? Center(
+                                child: Text(
+                                  "You have no active loan yet. \nVisit Application on homepage to Apply Now",
+                                  style: TextStyles.normal(
+                                    15,
+                                    Colors.grey[800],
                                   ),
                                 ),
-                              ),
+                              )
+                            : Column(
+                                children: <Widget>[
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
 
-                              // _________________________________
-                            ],
-                          ),
-                    const SizedBox(
-                      height: 10,
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
+                                  // _____________________________________
+
+                                  // test 2
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context)
+                                          .pushNamed(AppRouter.apply);
+                                    },
+                                    child: DoubleContainer2(
+                                      child1: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 12.0),
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Container(
+                                                height: 40,
+                                                width: 40,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color: const Color(
+                                                        0xFFF1E5E9)),
+                                                child: const Icon(
+                                                  Icons.credit_card,
+                                                  color: Colors.green,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            loanType!,
+                                            style: TextStyles.normal(16),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 12.0),
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Container(
+                                                height: 40,
+                                                width: 90,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color: Colors.green),
+                                                child: Center(
+                                                  child: Text(
+                                                    "Pending",
+                                                    style: TextStyles.h1(
+                                                        10, Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      child2: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Container(
+                                                  // height: 60,
+                                                  // color: Colors.red,
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        "$interest",
+                                                        style: TextStyles.h1(
+                                                            15, Colors.black),
+                                                      ),
+                                                      Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: Text(
+                                                          "Interest",
+                                                          style: TextStyles.h1(
+                                                              13,
+                                                              Colors.indigo),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [
+                                              Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Container(
+                                                  // height: 60,
+                                                  // color: Colors.red,
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        "KSH ${loanAmount!}",
+                                                        style: TextStyles.h1(
+                                                            15, Colors.black),
+                                                      ),
+                                                      Text(
+                                                        "Maximum amount",
+                                                        style: TextStyles.h1(
+                                                            12, Colors.grey),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+
+                                  // _________________________________
+                                ],
+                              ),
+                        const SizedBox(
+                          height: 10,
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: FacebookBannerAd(
+              placementId: AdConfig.bannerPlacementID,
+              bannerSize: BannerSize.STANDARD,
+              listener: (result, value) {
+                switch (result) {
+                  case BannerAdResult.ERROR:
+                    print("Error: $value");
+                    break;
+                  case BannerAdResult.LOADED:
+                    print("Loaded: $value");
+                    break;
+                  case BannerAdResult.CLICKED:
+                    print("Clicked: $value");
+                    break;
+                  case BannerAdResult.LOGGING_IMPRESSION:
+                    print("Logging Impression: $value");
+                    break;
+                }
+              },
+            ),
+          )
+        ],
       ),
     );
   }
