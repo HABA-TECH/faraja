@@ -1,6 +1,7 @@
 import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
 import 'package:haba/services/ads/ad_config.dart';
+import 'package:haba/utils/ads_widgets/ads_widget.dart';
 import 'package:haba/utils/colors.dart';
 import 'package:haba/utils/widgets/homeContainers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,9 +38,7 @@ class _HomeState extends State<Home> {
       email = prefs.getString('email') ?? 'test@gmail.com';
       lastName = prefs.getString('lastName') ?? 'Kamau';
       firstName = prefs.getString('firstName') ?? 'John';
-      // prefs.setString('lastName', lastName);
-      // prefs.setString('email', email);
-      // prefs.setString('phone', phone);
+ 
     });
   }
 
@@ -184,29 +183,32 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: FacebookBannerAd(
-              placementId: AdConfig.bannerPlacementID,
-              bannerSize: BannerSize.STANDARD,
-              listener: (result, value) {
-                switch (result) {
-                  case BannerAdResult.ERROR:
-                    print("Error: $value");
-                    break;
-                  case BannerAdResult.LOADED:
-                    print("Loaded: $value");
-                    break;
-                  case BannerAdResult.CLICKED:
-                    print("Clicked: $value");
-                    break;
-                  case BannerAdResult.LOGGING_IMPRESSION:
-                    print("Logging Impression: $value");
-                    break;
-                }
-              },
-            ),
-          )
+          // show banner ad
+
+          const ShowBannerAd()
+          // Align(
+          //   alignment: Alignment.bottomCenter,
+          //   child: FacebookBannerAd(
+          //     placementId: AdConfig.bannerPlacementID,
+          //     bannerSize: BannerSize.STANDARD,
+          //     listener: (result, value) {
+          //       switch (result) {
+          //         case BannerAdResult.ERROR:
+          //           print("Error: $value");
+          //           break;
+          //         case BannerAdResult.LOADED:
+          //           print("Loaded: $value");
+          //           break;
+          //         case BannerAdResult.CLICKED:
+          //           print("Clicked: $value");
+          //           break;
+          //         case BannerAdResult.LOGGING_IMPRESSION:
+          //           print("Logging Impression: $value");
+          //           break;
+          //       }
+          //     },
+          //   ),
+          // )
         ],
       ),
     );

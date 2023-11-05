@@ -4,6 +4,7 @@ import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
 import 'package:haba/services/ads/ad_config.dart';
 import 'package:haba/utils/TextStyles.dart';
+import 'package:haba/utils/ads_widgets/ads_widget.dart';
 import 'package:haba/utils/paddingUtil.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -444,19 +445,21 @@ class _LoaApplicationState extends State<LoaApplication> {
                                 children: [
                                   IconButton(
                                     onPressed: () async {
-                                      await FacebookInterstitialAd
-                                          .loadInterstitialAd(
-                                        placementId:
-                                            AdConfig.interstitialPlacementID,
-                                        listener: (result, value) {
-                                          if (result ==
-                                              InterstitialAdResult.LOADED) {
-                                            FacebookInterstitialAd
-                                                .showInterstitialAd(
-                                                    delay: 5000);
-                                          }
-                                        },
-                                      ).then((value) => Navigator.pop(context));
+                                      ShowInterstitialAd().showAd(context);
+                                     
+                                      // await FacebookInterstitialAd
+                                      //     .loadInterstitialAd(
+                                      //   placementId:
+                                      //       AdConfig.interstitialPlacementID,
+                                      //   listener: (result, value) {
+                                      //     if (result ==
+                                      //         InterstitialAdResult.LOADED) {
+                                      //       FacebookInterstitialAd
+                                      //           .showInterstitialAd(
+                                      //               delay: 5000);
+                                      //     }
+                                      //   },
+                                      // ).then((value) => Navigator.pop(context));
                                     },
                                     icon: const Icon(Icons.close_sharp),
                                   ),

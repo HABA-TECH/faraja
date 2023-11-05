@@ -3,6 +3,7 @@ import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:haba/services/ads/ad_config.dart';
 import 'package:haba/utils/TextStyles.dart';
+import 'package:haba/utils/ads_widgets/ads_widget.dart';
 import 'package:logger/logger.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
@@ -56,109 +57,111 @@ class _OnboardingOverviewState extends State<OnboardingOverview> {
   @override
   Widget build(BuildContext context) {
     return CupertinoOnboarding(
-      // onPressed: () {},
       onPressedOnLastPage: () async {
-        await FacebookInterstitialAd.loadInterstitialAd(
-          placementId: AdConfig.interstitialPlacementID,
-          listener: (result, value) {
-            if (result == InterstitialAdResult.LOADED) {
-              FacebookInterstitialAd.showInterstitialAd(delay: 5000);
-            }
-          },
-        );
+        ShowInterstitialAd().showAd(context);
         if (context.mounted) {
           Navigator.pushNamedAndRemoveUntil(
-              context, AppRouter.dash, (route) => false);
+              context, AppRouter.login, (route) => false);
         }
       },
       bottomButtonColor: AppColors.primaryColor,
       pages: [
-        Align(
-          child: WhatsNewPage(
-            title: Text(
-              "Low\ninterest",
-              textAlign: TextAlign.center,
-              style: TextStyles.h2(35),
-            ),
-            features: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 2,
-                height: 200,
-                // color: Colors.blue,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30)
-                      .copyWith(top: 10),
-                  child: Lottie.asset(
-                    'assets/lottie/tracker.json',
-                    height: MediaQuery.of(context).size.height / 2.5,
+        GestureDetector(
+          onTap: () async {
+            ShowInterstitialAd().showAd(context);
+          },
+          child: Align(
+            child: WhatsNewPage(
+              title: Text(
+                "Low\ninterest",
+                textAlign: TextAlign.center,
+                style: TextStyles.h2(35),
+              ),
+              features: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 2,
+                  height: 200,
+                  // color: Colors.blue,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30)
+                        .copyWith(top: 10),
+                    child: Lottie.asset(
+                      'assets/lottie/tracker.json',
+                      height: MediaQuery.of(context).size.height / 2.5,
+                    ),
                   ),
                 ),
-              ),
-              WhatsNewFeature(
-                title: const Text('Low interest rates'),
-                description: const Text(
-                  '',
+                WhatsNewFeature(
+                  title: const Text('Low interest rates'),
+                  description: const Text(
+                    '',
+                  ),
+                  icon: Icon(
+                    CupertinoIcons.sparkles,
+                    color: AppColors.primaryColor,
+                  ),
                 ),
-                icon: Icon(
-                  CupertinoIcons.sparkles,
-                  color: AppColors.primaryColor,
+                const WhatsNewFeature(
+                  title: Text(
+                    "Faraja Credit allows you to get quick loans with low interest rates",
+                  ),
+                  description: Text(''),
+                  icon: Icon(
+                    CupertinoIcons.paintbrush,
+                    color: Colors.transparent,
+                  ),
                 ),
-              ),
-              const WhatsNewFeature(
-                title: Text(
-                  "Faraja Credit allows you to get quick loans with low interest rates",
-                ),
-                description: Text(''),
-                icon: Icon(
-                  CupertinoIcons.paintbrush,
-                  color: Colors.transparent,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
 
         // Tracker
-        Align(
-          child: WhatsNewPage(
-            title: Text(
-              "Easy Quick access to loans",
-              textAlign: TextAlign.center,
-              style: TextStyles.h2(35),
-            ),
-            features: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 2,
-                height: 200,
-                // color: Colors.blue,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30)
-                      .copyWith(top: 10),
-                  child: Lottie.asset(
-                    'assets/lottie/saving-money.json',
-                    height: MediaQuery.of(context).size.height / 2.5,
+        GestureDetector(
+          onTap: () async {
+            ShowInterstitialAd().showAd(context);
+          },
+          child: Align(
+            child: WhatsNewPage(
+              title: Text(
+                "Easy Quick access to loans",
+                textAlign: TextAlign.center,
+                style: TextStyles.h2(35),
+              ),
+              features: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 2,
+                  height: 200,
+                  // color: Colors.blue,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30)
+                        .copyWith(top: 10),
+                    child: Lottie.asset(
+                      'assets/lottie/saving-money.json',
+                      height: MediaQuery.of(context).size.height / 2.5,
+                    ),
                   ),
                 ),
-              ),
-              WhatsNewFeature(
-                title: const Text('Quick approval'),
-                description: const Text(
-                  ' ',
+                WhatsNewFeature(
+                  title: const Text('Quick approval'),
+                  description: const Text(
+                    ' ',
+                  ),
+                  icon: Icon(CupertinoIcons.sparkles,
+                      color: AppColors.primaryColor),
                 ),
-                icon: Icon(CupertinoIcons.sparkles,
-                    color: AppColors.primaryColor),
-              ),
-              const WhatsNewFeature(
-                title: Text(
-                  "With Faraja finance, you can access upto Ksh 50,000 with fast approval time",
+                const WhatsNewFeature(
+                  title: Text(
+                    "With Faraja finance, you can access upto Ksh 50,000 with fast approval time",
+                  ),
+                  description: Text(''),
+                  icon: Icon(
+                    CupertinoIcons.paintbrush,
+                    color: Colors.transparent,
+                  ),
                 ),
-                description: Text(''),
-                icon: Icon(
-                  CupertinoIcons.paintbrush,
-                  color: Colors.transparent,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
 
