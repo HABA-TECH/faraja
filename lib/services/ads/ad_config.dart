@@ -10,11 +10,10 @@ class AdConfig {
 
   static String interstitialPlacementID = Platform.isIOS
       ? '_'
-      : 'IMG_16_9_APP_INSTALL#280489541044422_280491447710898'; // 'b6516637763f10';
+      : '280489541044422_280491447710898'; // 'b6516637763f10';
   static String bannerPlacementID = Platform.isIOS
       ? '_'
-      : 'IMG_16_9_LINK#280489541044422_280491827710860'; // 'b651663c6e5bc9';
-
+      : '280489541044422_280491827710860'; // 'b651663c6e5bc9';
 }
 
 

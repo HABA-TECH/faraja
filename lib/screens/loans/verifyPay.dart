@@ -35,7 +35,7 @@ class _VerifyPayState extends State<VerifyPay> {
     myFocusNode = FocusNode();
 
     // =================================================================
-    String appStoreId = 'com.starplay.spider.fighter3d';
+    String appStoreId = '';
     String microsoftStoreId = '';
     Availability availability = Availability.loading;
 
