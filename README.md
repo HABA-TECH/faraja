@@ -1,17 +1,9 @@
-# Haba: Automate Your Finances
-
-![logo](https://user-images.githubusercontent.com/55794066/236268074-c25cf5bc-ad6e-4e6c-8468-a7708ce6bdc9.png)
-
-
-
-Haba is a Flutter project that aims to revolutionize financial automation for individuals and businesses. It offers a comprehensive solution to automate financial tasks, providing convenience and efficiency in managing your finances.
-
-## Introduction
-Haba is a powerful platform designed to streamline financial processes, making it easy for both individuals and businesses to automate their finances. With Haba, you can automate tasks such as expense tracking, bill payments, and budgeting, saving you time and effort. Take control of your financial management and experience a new level of financial freedom with Haba.
-
+# Faraja:  
+ 
+ 
 ## Setup
 
-To get started with Haba, follow the steps below:
+To get started with Faraja, follow the steps below:
 
 ### Prerequisites
 
@@ -22,12 +14,12 @@ To get started with Haba, follow the steps below:
 1. Open a terminal and navigate to the directory where you want to clone the project.
 2. Run the following command to clone the repository:
 
-`git clone https://github.com/HABA-TECH/haba-mobile`
+`git clone https://github.com/HABA-TECH/faraja`
 
 
 ### Project Structure
 
-The Haba Flutter project follows the following structure:
+The faraja Flutter project follows the following structure:
 
 - **assets**: Contains any static assets required by the app, such as images or fonts.
 - **lib**: Contains the Dart source code for the Haba application.
@@ -56,9 +48,9 @@ Make sure you have a compatible device or simulator connected to your developmen
 
 Here are some additional things you might need to set up:
 
-- **Backend Integration**: Haba relies on backend services for some functionalities. Make sure to configure the backend endpoints and necessary authentication tokens in the appropriate files (`lib/main_dev.dart` and `lib/main_live.dart`).
+- **Backend Integration**: faraja relies on backend services for some functionalities. Make sure to configure the backend endpoints and necessary authentication tokens in the appropriate files (`lib/main_dev.dart` and `lib/main_live.dart`).
 
-- **Third-Party Dependencies**: If Haba relies on any third-party services or libraries, follow the documentation provided by those services to set up the required credentials or configurations.
+- **Third-Party Dependencies**: If faraja relies on any third-party services or libraries, follow the documentation provided by those services to set up the required credentials or configurations.
 
 ### Testing and Debugging
 
@@ -66,11 +58,11 @@ For testing and debugging, you can use the standard Flutter testing and debuggin
 
 ## Contributing
 
-Contributions to Haba are welcome! If you find any issues or have suggestions for improvement, please submit a pull request or open an issue on the GitHub repository.
+Contributions to faraja are welcome! If you find any issues or have suggestions for improvement, please submit a pull request or open an issue on the GitHub repository.
 
 ## License
 
-Haba is released under the [MIT License](LICENSE). Feel free to modify and customize it to meet your specific requirements.
+faraja is released under the [MIT License](LICENSE). Feel free to modify and customize it to meet your specific requirements.
 
 ## Acknowledgments
 
