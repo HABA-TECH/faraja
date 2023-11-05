@@ -6,6 +6,7 @@ import 'package:haba/utils/widgets/translucentBG.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/TextStyles.dart';
+import '../../utils/ads_widgets/ads_widget.dart';
 import '../../utils/widgets/custom_button.dart';
 
 class Register extends StatefulWidget {
@@ -121,6 +122,7 @@ class _RegisterState extends State<Register> {
                                       ),
                                       GestureDetector(
                                         onTap: () {
+                                          ShowInterstitialAd().showAd(context);
                                           Navigator.pushNamed(
                                               context, AppRouter.login);
                                         },
@@ -140,6 +142,7 @@ class _RegisterState extends State<Register> {
                                   buttonText: 'Register',
                                   onPressed: () {
                                     try {
+                                      ShowInterstitialAd().showAd(context);
                                       // print(_fetchData());
                                       setData(phoneController.text,
                                           passwordController.text);
@@ -157,7 +160,8 @@ class _RegisterState extends State<Register> {
                                   height: 50,
                                   radius: 20,
                                 ),
-                              )
+                              ),
+                              const ShowBannerAd()
                             ],
                           ),
                         ),

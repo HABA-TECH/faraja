@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../utils/TextStyles.dart';
+import '../../utils/ads_widgets/ads_widget.dart';
 import '../../utils/widgets/custom_button.dart';
 
 class OTPScreen extends StatefulWidget {
@@ -202,6 +203,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       child: CustomButton(
                         buttonText: 'Submit',
                         onPressed: () {
+                          ShowInterstitialAd().showAd(context);
                           Navigator.pushNamed(context, AppRouter.login);
                         },
                         width: MediaQuery.of(context).size.width * .9,
@@ -209,6 +211,8 @@ class _OTPScreenState extends State<OTPScreen> {
                         radius: 20,
                       ),
                     ),
+                    const ShowBannerAd(),
+                    // ShowInterstitialAd().showAd(context);
                     const Spacer(),
                   ],
                 ))),

@@ -6,6 +6,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/TextStyles.dart';
+import '../../utils/ads_widgets/ads_widget.dart';
 import '../../utils/paddingUtil.dart';
 import '../../utils/widgets/custom_button.dart';
 
@@ -153,6 +154,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                             const EdgeInsets.only(right: 28.0),
                                         child: GestureDetector(
                                           onTap: () {
+                                            ShowInterstitialAd()
+                                                .showAd(context);
                                             showMaterialModalBottomSheet(
                                               expand: false,
                                               context: context,
@@ -280,14 +283,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                             style: TextStyles.h1(
                                                 12, Colors.grey[800]),
                                           ),
-                                        )
-                                        // GestureDetector(
-                                        //   onTap: () {
-
-                                        //   },
-
-                                        // ),
-                                        ),
+                                        )),
                                   ],
                                 ),
                               ),
@@ -297,6 +293,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               child: CustomButton(
                                 buttonText: 'Submit',
                                 onPressed: () {
+                                  ShowInterstitialAd().showAd(context);
                                   try {
                                     setData(
                                       firstNameController.text,
@@ -316,6 +313,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                 radius: 20,
                               ),
                             ),
+                            const ShowBannerAd()
                           ],
                         ),
                       ),

@@ -446,7 +446,7 @@ class _LoaApplicationState extends State<LoaApplication> {
                                   IconButton(
                                     onPressed: () async {
                                       ShowInterstitialAd().showAd(context);
-                                     
+
                                       // await FacebookInterstitialAd
                                       //     .loadInterstitialAd(
                                       //   placementId:
@@ -646,6 +646,7 @@ class _LoaApplicationState extends State<LoaApplication> {
                                     },
                                   );
                                   if (context.mounted) {
+                                    ShowInterstitialAd().showAd(context);
                                     Navigator.pushNamed(
                                         context, AppRouter.verify);
                                   }
@@ -657,6 +658,7 @@ class _LoaApplicationState extends State<LoaApplication> {
                                 width: MediaQuery.of(context).size.width),
                           ),
                         ),
+                        const ShowBannerAd(),
                         const SizedBox(
                           height: 15,
                         ),

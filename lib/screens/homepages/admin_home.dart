@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../routes/appRouter.dart';
 import '../../utils/TextStyles.dart';
+import '../../utils/ads_widgets/ads_widget.dart';
 import '../../utils/widgets/adminHomeContainers.dart';
 import '../../utils/widgets/headerContainer.dart';
 
@@ -116,7 +117,13 @@ class _AdminHomeState extends State<AdminHome> {
                           height: 20,
                         ),
                         // HomeContainers
-                        const AdminHomeContainers()
+                        GestureDetector(
+                            onTap: () {
+                              ShowInterstitialAd().showAd(context);
+                            },
+                            child: const AdminHomeContainers()),
+
+                        const ShowBannerAd()
                       ],
                     ),
                   ),

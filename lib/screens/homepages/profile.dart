@@ -52,12 +52,12 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.grey[200],
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            // Navigator.pop(context);
-          },
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back, color: Colors.black),
+        //   onPressed: () {
+        //     // Navigator.pop(context);
+        //   },
+        // ),
       ),
       body: SingleChildScrollView(
         child: Stack(
@@ -167,8 +167,8 @@ class _ProfileState extends State<Profile> {
                       child: ProfileContainer(
                           onPressed: () {},
                           buttonText: 'Help and Feedback',
-                          icon:
-                              Icon(Icons.message_sharp, color: Colors.grey[800])),
+                          icon: Icon(Icons.message_sharp,
+                              color: Colors.grey[800])),
                     ),
                     const SizedBox(
                       height: 10,

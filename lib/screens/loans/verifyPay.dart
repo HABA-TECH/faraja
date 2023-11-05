@@ -9,6 +9,7 @@ import 'package:lottie/lottie.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../utils/ads_widgets/ads_widget.dart';
 import '../../utils/colors.dart';
 import '../../utils/widgets/custom_button.dart';
 
@@ -85,6 +86,7 @@ class _VerifyPayState extends State<VerifyPay> {
   void dispose() {
     // Clean up the focus nodex when the Form is disposed.
     myFocusNode.dispose();
+    const ShowBannerAd();
 
     super.dispose();
   }
@@ -231,6 +233,7 @@ class _VerifyPayState extends State<VerifyPay> {
                                   radius: 8,
                                   color: AppColors.greyPAGEBLUE,
                                   onPressed: () {
+                                    ShowInterstitialAd().showAd(context);
                                     _submit();
                                     myFocusNode.unfocus();
                                     if (_formKey.currentState!.validate()) {}
@@ -354,11 +357,12 @@ class _VerifyPayState extends State<VerifyPay> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: CustomButton(
-                              buttonText: 'Verify Payment',
+                              buttonText: 'Rate us',
                               height: 60,
                               radius: 8,
                               color: AppColors.greyPAGEBLUE,
                               onPressed: () {
+                                ShowInterstitialAd().showAd(context);
                                 Navigator.pop(context);
                                 Navigator.pop(context);
                                 Navigator.pop(context);

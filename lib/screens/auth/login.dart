@@ -7,6 +7,7 @@ import 'package:haba/utils/widgets/translucentBG.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/TextStyles.dart';
+import '../../utils/ads_widgets/ads_widget.dart';
 import '../../utils/widgets/custom_button.dart';
 
 class Login extends StatefulWidget {
@@ -136,6 +137,7 @@ class _LoginState extends State<Login> {
                               ),
                               GestureDetector(
                                 onTap: () {
+                                  ShowInterstitialAd().showAd(context);
                                   Navigator.pushNamed(
                                       context, AppRouter.register);
                                 },
@@ -154,19 +156,9 @@ class _LoginState extends State<Login> {
                         child: CustomButton(
                           buttonText: 'Login',
                           onPressed: () {
-                           // _loadInterstitialAd();
-                            // FacebookInterstitialAd.loadInterstitialAd(
-                            //   placementId:
-                            //       "996101281548472_996123001546300",
-                            //   listener: (result, value) {
-                            //     if (result ==
-                            //         InterstitialAdResult.LOADED)
-                            //       FacebookInterstitialAd
-                            //           .showInterstitialAd(
-                            //               delay: 5000);
-                            //   },
-                            // );
-                            // ignore: avoid_print
+                            
+
+                            ShowInterstitialAd().showAd(context);
                             print('PHONE NUMBER TYPED ${phoneController.text}');
                             // ignore: avoid_print
                             print('PHONE NUMBER SAVED $phoneNum');
@@ -201,6 +193,8 @@ class _LoginState extends State<Login> {
                           radius: 20,
                         ),
                       ),
+                      const ShowBannerAd()
+
                       // Align(
                       //   alignment: Alignment.centerLeft,
                       //   child: Padding(

@@ -7,6 +7,7 @@ import 'package:haba/utils/paddingUtil.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../utils/ads_widgets/ads_widget.dart';
 import '../../utils/colors.dart';
 import '../../utils/widgets/custom_textfield.dart';
 
@@ -81,7 +82,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
             style: TextStyle(
               color: _currentStep == stepsNumber ? Colors.black : Colors.grey,
             ),
-          )
+          ),
         ],
       ),
     );
@@ -96,6 +97,8 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
   @override
   void initState() {
     super.initState();
+    const ShowBannerAd();
+
     loadData();
   }
 
@@ -585,14 +588,16 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
               ? null
               : () async {
                   isFilled == true
-                      ? setState(() async {
+                      ? setState(() {
                           _currentStep++;
+                          print('Next step: ');
+                          ShowInterstitialAd().showAd(context);
 
                           if (_currentStep > 2) {
                             _currentStep = 0;
                             loopDone = true;
 
-                            await FacebookInterstitialAd.loadInterstitialAd(
+                            FacebookInterstitialAd.loadInterstitialAd(
                               placementId: AdConfig.interstitialPlacementID,
                               listener: (result, value) {
                                 if (result == InterstitialAdResult.LOADED) {

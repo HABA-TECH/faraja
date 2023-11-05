@@ -8,6 +8,7 @@ import 'package:haba/utils/widgets/doublesidedContainer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../routes/appRouter.dart';
+import '../../utils/ads_widgets/ads_widget.dart';
 
 class LoanOffers extends StatefulWidget {
   const LoanOffers({super.key});
@@ -57,6 +58,7 @@ class _LoanOffersState extends State<LoanOffers> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
+            ShowInterstitialAd().showAd(context);
             Navigator.pushNamed(context, AppRouter.dash);
           },
         ),
@@ -100,6 +102,7 @@ class _LoanOffersState extends State<LoanOffers> {
 
                           GestureDetector(
                             onTap: () {
+                              ShowInterstitialAd().showAd(context);
                               setState(() {
                                 setData();
                                 interest = 0.05;
@@ -226,6 +229,7 @@ class _LoanOffersState extends State<LoanOffers> {
                           //  PERSONAL
                           GestureDetector(
                             onTap: () {
+                              ShowInterstitialAd().showAd(context);
                               setState(() {
                                 setData();
                                 interest = 0.04;
@@ -353,6 +357,7 @@ class _LoanOffersState extends State<LoanOffers> {
                           //  STUDENT
                           GestureDetector(
                             onTap: () {
+                              ShowInterstitialAd().showAd(context);
                               setState(() {
                                 setData();
                                 interest = 0.03;
@@ -480,6 +485,7 @@ class _LoanOffersState extends State<LoanOffers> {
                           // EMERGENCY:
                           GestureDetector(
                             onTap: () {
+                              ShowInterstitialAd().showAd(context);
                               setState(() {
                                 setData();
                                 interest = 0.05;

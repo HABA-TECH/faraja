@@ -6,6 +6,8 @@ import 'package:haba/screens/homepages/profile.dart';
 import 'package:haba/screens/loans/loanoffers.dart';
 import 'package:haba/utils/colors.dart';
 
+import '../utils/ads_widgets/ads_widget.dart';
+
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
 
@@ -39,6 +41,7 @@ class _DashboardState extends State<Dashboard> {
         child: PageView(
           controller: _pageController,
           onPageChanged: (index) {
+            ShowInterstitialAd().showAd(context);
             setState(() => _currentIndex = index);
           },
           children: const <Widget>[

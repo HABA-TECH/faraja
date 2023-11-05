@@ -4,6 +4,7 @@ import 'package:haba/utils/colors.dart';
 import 'package:haba/utils/widgets/doublesidedContainer.dart';
 
 import '../TextStyles.dart';
+import '../ads_widgets/ads_widget.dart';
 
 class HeaderContainer extends StatefulWidget {
   final double? height;
@@ -133,6 +134,8 @@ class _HeaderContainerState extends State<HeaderContainer> {
               ),
               GestureDetector(
                 onTap: () {
+              
+                      ShowInterstitialAd().showAd(context);
                   Navigator.of(context).pushNamed(AppRouter.personalInfoHome);
                 },
                 child: const Align(
