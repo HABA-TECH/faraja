@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:haba/utils/AppTheme.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:haba/utils/colors.dart';
 
@@ -47,7 +46,7 @@ class CustomTextField extends StatelessWidget {
             }
             return null;
           },
-          maxLines: 2,
+          maxLines: maxLines,
           controller: controller,
           style: TextStyles.normal(22),
           keyboardType: inputType,

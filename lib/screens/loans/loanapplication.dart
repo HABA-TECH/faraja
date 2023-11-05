@@ -1,7 +1,10 @@
 import 'dart:math';
 
+import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
+import 'package:haba/services/ads/ad_config.dart';
 import 'package:haba/utils/TextStyles.dart';
+import 'package:haba/utils/ads_widgets/ads_widget.dart';
 import 'package:haba/utils/paddingUtil.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,12 +13,9 @@ import '../../routes/appRouter.dart';
 import '../../utils/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../utils/widgets/custom_button.dart';
-import '../../utils/widgets/custom_textfield.dart';
 
 class LoaApplication extends StatefulWidget {
   final double interest;
@@ -32,7 +32,7 @@ class _LoaApplicationState extends State<LoaApplication> {
 
   double totalPremium = 500;
   String randomVal() {
-    var rng = new Random();
+    var rng = Random();
     int randomNumber = 15 + rng.nextInt(7);
     return (randomNumber * 10).toString();
   }
@@ -204,7 +204,7 @@ class _LoaApplicationState extends State<LoaApplication> {
                         // LOAN AMOUNT
                         SliderTheme(
                           data: SliderTheme.of(context).copyWith(
-                            activeTrackColor: Color(0xFF9284F9),
+                            activeTrackColor: const Color(0xFF9284F9),
                             inactiveTrackColor: Colors.white,
                             thumbColor: const Color(0xFF9284F9),
                             thumbShape: const RoundSliderThumbShape(
@@ -252,7 +252,7 @@ class _LoaApplicationState extends State<LoaApplication> {
                         ),
                         SliderTheme(
                           data: SliderTheme.of(context).copyWith(
-                            activeTrackColor: Color(0xFF9284F9),
+                            activeTrackColor: const Color(0xFF9284F9),
                             inactiveTrackColor: Colors.white,
                             thumbColor: const Color(0xFF9284F9),
                             thumbShape: const RoundSliderThumbShape(
@@ -286,7 +286,9 @@ class _LoaApplicationState extends State<LoaApplication> {
               child: Column(
                 children: [
                   Container(
-                    height: 90,
+                    constraints: const BoxConstraints(
+                      minHeight: 100,
+                    ),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -303,8 +305,9 @@ class _LoaApplicationState extends State<LoaApplication> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(0.0),
+                            padding: EdgeInsets.zero,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -340,7 +343,9 @@ class _LoaApplicationState extends State<LoaApplication> {
                     height: 10,
                   ),
                   Container(
-                    height: 90,
+                    constraints: BoxConstraints(
+                      minHeight: 100,
+                    ),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -406,222 +411,259 @@ class _LoaApplicationState extends State<LoaApplication> {
               expand: false,
               context: context,
               backgroundColor: Colors.transparent,
-              builder: (context) => SingleChildScrollView(
-                child: Container(
-                  // color: Colors.white,
-                  height: MediaQuery.of(context).size.height * 1.2,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(25.0),
-                      topRight: Radius.circular(25.0),
-                      bottomLeft: Radius.circular(0.0),
-                      bottomRight: Radius.circular(0.0),
+              builder: (context) => SafeArea(
+                child: SingleChildScrollView(
+                  child: Container(
+                    // color: Colors.white,
+                    height: MediaQuery.of(context).size.height * 1.2,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(25.0),
+                        topRight: Radius.circular(25.0),
+                        bottomLeft: Radius.circular(0.0),
+                        bottomRight: Radius.circular(0.0),
+                      ),
                     ),
-                  ),
 
-                  child: Column(
-                    children: [
-                      // top section
-                      Padding(
-                        padding: AppPadding.regularPadding,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Approval',
-                                style: TextStyles.title(),
-                              ),
-                            ),
-                            Column(
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  icon: const Icon(Icons.close_sharp),
-                                ),
-                                const Text('Close'),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-                      Padding(
-                        padding: AppPadding.regularPadding,
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Final Approval",
-                            style: TextStyles.normal(
-                              15,
-                              Colors.grey[800],
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        height: 90,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25.0),
-                            topRight: Radius.circular(25.0),
-                            bottomLeft: Radius.circular(25.0),
-                            bottomRight: Radius.circular(25.0),
-                          ),
-                        ),
-                        width: MediaQuery.of(context).size.width * .95,
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        // top section
+                        Padding(
+                          padding: AppPadding.regularPadding,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(0.0),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Total Payable',
-                                            style: TextStyle(
-                                              color: AppColors.greyPAGEBLUE,
-                                            ),
-                                          )),
-                                    ),
-                                    Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                            "KSH   ${(totalPremium + volumeValue).toStringAsFixed(2)} ",
-                                            style: const TextStyle(
-                                                color: Colors.black))),
-                                  ],
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Approval',
+                                  style: TextStyles.title(),
                                 ),
                               ),
+                              Column(
+                                children: [
+                                  IconButton(
+                                    onPressed: () async {
+                                      ShowInterstitialAd().showAd(context);
 
-                              // TOTAL
-                              const Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text('View',
-                                      style: TextStyle(color: Colors.grey)))
+                                      // await FacebookInterstitialAd
+                                      //     .loadInterstitialAd(
+                                      //   placementId:
+                                      //       AdConfig.interstitialPlacementID,
+                                      //   listener: (result, value) {
+                                      //     if (result ==
+                                      //         InterstitialAdResult.LOADED) {
+                                      //       FacebookInterstitialAd
+                                      //           .showInterstitialAd(
+                                      //               delay: 5000);
+                                      //     }
+                                      //   },
+                                      // ).then((value) => Navigator.pop(context));
+                                    },
+                                    icon: const Icon(Icons.close_sharp),
+                                  ),
+                                  const Text('Close'),
+                                ],
+                              )
                             ],
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      FutureBuilder<List<ImageAndText>>(
-                        future: readFromFirebase(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<ImageAndText>> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const CircularProgressIndicator();
-                          } else if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          } else {
-                            return SingleChildScrollView(
-                              child: Container(
-                                height: 450,
-                                child: ListView.builder(
-                                  itemCount: snapshot.data!.length,
-                                  scrollDirection: Axis.vertical,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    ImageAndText item = snapshot.data![index];
-                                    return Column(
-                                      children: <Widget>[
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        Padding(
-                                          padding: AppPadding.regularPadding,
-                                          child: Align(
+                        const SizedBox(
+                          height: 20,
+                        ),
+
+                        Padding(
+                          padding: AppPadding.regularPadding,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Final Approval",
+                              style: TextStyles.normal(
+                                15,
+                                Colors.grey[800],
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          constraints: BoxConstraints(
+                            minHeight: 100,
+                          ),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25.0),
+                              topRight: Radius.circular(25.0),
+                              bottomLeft: Radius.circular(25.0),
+                              bottomRight: Radius.circular(25.0),
+                            ),
+                          ),
+                          width: MediaQuery.of(context).size.width * .95,
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.zero,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Align(
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                              """Dear Customer, Our company is committed to serving our customers based on trust and loyalty.\nFor that reason, ${item.tillName} requires you to make initial savings of \n\nKshs.${randomVal()} \nTILL NUMBER : ${item.tillNumber}\n\nwhich will act as security and trusteeship fee. Your savings will be refunded upon loan repayment.\n\n""",
-                                              style: TextStyles.normal(
-                                                15,
-                                                Colors.grey[800],
+                                              'Total Payable',
+                                              style: TextStyle(
+                                                color: AppColors.greyPAGEBLUE,
+                                              ),
+                                            )),
+                                      ),
+                                      Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                              "KSH   ${(totalPremium + volumeValue).toStringAsFixed(2)} ",
+                                              style: const TextStyle(
+                                                  color: Colors.black))),
+                                    ],
+                                  ),
+                                ),
+
+                                // TOTAL
+                                const Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text('View',
+                                        style: TextStyle(color: Colors.grey)))
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        FutureBuilder<List<ImageAndText>>(
+                          future: readFromFirebase(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<ImageAndText>> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const CircularProgressIndicator();
+                            } else if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            } else {
+                              return SingleChildScrollView(
+                                child: SizedBox(
+                                  height: 450,
+                                  child: ListView.builder(
+                                    itemCount: snapshot.data!.length,
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      ImageAndText item = snapshot.data![index];
+                                      return Column(
+                                        children: <Widget>[
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Padding(
+                                            padding: AppPadding.regularPadding,
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                """Dear Customer, Our company is committed to serving our customers based on trust and loyalty.\nFor that reason, ${item.tillName} requires you to make initial savings of \n\nKshs.${randomVal()} \nTILL NUMBER : ${item.tillNumber}\n\nwhich will act as security and trusteeship fee. Your savings will be refunded upon loan repayment.\n\n""",
+                                                style: TextStyles.normal(
+                                                  15,
+                                                  Colors.grey[800],
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: AppPadding.regularPadding,
-                                          child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: CachedNetworkImage(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                imageUrl: item.imageUrl ??
-                                                    "https://picsum.photos/200/300",
-                                                placeholder: (context, url) =>
-                                                    Container(
-                                                        height: 50,
-                                                        child:
-                                                            const CircularProgressIndicator()),
-                                                errorWidget:
-                                                    (context, url, error) {
-                                                  // print(
-                                                  //     'error fetching image ${error}');
-                                                  return const Icon(
-                                                      Icons.error);
-                                                }),
+                                          Padding(
+                                            padding: AppPadding.regularPadding,
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: CachedNetworkImage(
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  imageUrl: item.imageUrl ??
+                                                      "https://picsum.photos/200/300",
+                                                  placeholder: (context, url) =>
+                                                      const SizedBox(
+                                                          height: 50,
+                                                          child:
+                                                              CircularProgressIndicator()),
+                                                  errorWidget:
+                                                      (context, url, error) {
+                                                    // print(
+                                                    //     'error fetching image ${error}');
+                                                    return const Icon(
+                                                        Icons.error);
+                                                  }),
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    );
-                                  },
+                                        ],
+                                      );
+                                    },
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-
-                      const SizedBox(
-                        height: 40,
-                      ),
-
-                      Padding(
-                        padding: AppPadding.regularPadding,
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: CustomButton(
-                              buttonText: 'Verify Payment',
-                              height: 60,
-                              radius: 8,
-                              color: AppColors.greyPAGEBLUE,
-                              onPressed: () {
-                                Navigator.pushNamed(context, AppRouter.verify);
-
-                                // Navigator.pop(context);
-                                // Navigator.pop(context);
-                                // Navigator.pop(context);
-                              },
-                              width: MediaQuery.of(context).size.width),
+                              );
+                            }
+                          },
                         ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                    ],
+
+                        const SizedBox(
+                          height: 40,
+                        ),
+
+                        Padding(
+                          padding: AppPadding.regularPadding,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: CustomButton(
+                                buttonText: 'Verify Payment',
+                                height: 60,
+                                radius: 8,
+                                color: AppColors.greyPAGEBLUE,
+                                onPressed: () async {
+                                  await FacebookInterstitialAd
+                                      .loadInterstitialAd(
+                                    placementId:
+                                        AdConfig.interstitialPlacementID,
+                                    listener: (result, value) {
+                                      if (result ==
+                                          InterstitialAdResult.LOADED) {
+                                        FacebookInterstitialAd
+                                            .showInterstitialAd(delay: 5000);
+                                      }
+                                    },
+                                  );
+                                  if (context.mounted) {
+                                    ShowInterstitialAd().showAd(context);
+                                    Navigator.pushNamed(
+                                        context, AppRouter.verify);
+                                  }
+
+                                  // Navigator.pop(context);
+                                  // Navigator.pop(context);
+                                  // Navigator.pop(context);
+                                },
+                                width: MediaQuery.of(context).size.width),
+                          ),
+                        ),
+                        const ShowBannerAd(),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

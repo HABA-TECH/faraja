@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:haba/routes/approuter.dart';
+import 'package:haba/routes/appRouter.dart';
 import 'package:haba/utils/colors.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../TextStyles.dart';
+import '../ads_widgets/ads_widget.dart';
 import '../paddingUtil.dart';
 
 class HomeContainers extends StatelessWidget {
@@ -18,6 +19,7 @@ class HomeContainers extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
+                ShowInterstitialAd().showAd(context);
                 Navigator.pushNamed(context, AppRouter.personalInfoHome);
               },
               child: CustomHomeContainer(
@@ -28,6 +30,7 @@ class HomeContainers extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
+                ShowInterstitialAd().showAd(context);
                 Navigator.pushNamed(context, AppRouter.loanOffers);
               },
               child: CustomHomeContainer(
@@ -41,13 +44,19 @@ class HomeContainers extends StatelessWidget {
         ),
         Column(
           children: [
-            CustomHomeContainer(
-                height: 160,
-                icon: Icons.wallet,
-                text: 'Make loan repayment',
-                color: AppColors.greyLIGHTGREEN),
             GestureDetector(
               onTap: () {
+                ShowInterstitialAd().showAd(context);
+              },
+              child: CustomHomeContainer(
+                  height: 160,
+                  icon: Icons.wallet,
+                  text: 'Make loan repayment',
+                  color: AppColors.greyLIGHTGREEN),
+            ),
+            GestureDetector(
+              onTap: () {
+                ShowInterstitialAd().showAd(context);
                 showMaterialModalBottomSheet(
                   expand: false,
                   context: context,

@@ -16,7 +16,6 @@ class AppTheme {
     scaffoldBackgroundColor: backgroundColor,
     primaryColorLight: secondaryColor,
     canvasColor: greyButtonColor,
-    
     textTheme: const TextTheme(
       titleLarge: TextStyle(fontFamily: 'Gotham-Black', fontSize: 32),
       titleSmall: TextStyle(fontFamily: 'Gotham-Bold', fontSize: 24),

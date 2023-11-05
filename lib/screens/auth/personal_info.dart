@@ -1,18 +1,14 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:haba/routes/appRouter.dart';
 import 'package:haba/utils/widgets/custom_textfield.dart';
-import 'package:haba/utils/AppTheme.dart';
-import 'package:haba/utils/colors.dart';
 import 'package:haba/utils/widgets/translucentBG.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../services/data/sharedPreferences.dart';
 import '../../utils/TextStyles.dart';
+import '../../utils/ads_widgets/ads_widget.dart';
 import '../../utils/paddingUtil.dart';
 import '../../utils/widgets/custom_button.dart';
-import '../../utils/widgets/homeContainers.dart';
 
 class PersonalInfo extends StatefulWidget {
   const PersonalInfo({super.key});
@@ -158,6 +154,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                             const EdgeInsets.only(right: 28.0),
                                         child: GestureDetector(
                                           onTap: () {
+                                            ShowInterstitialAd()
+                                                .showAd(context);
                                             showMaterialModalBottomSheet(
                                               expand: false,
                                               context: context,
@@ -285,14 +283,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                             style: TextStyles.h1(
                                                 12, Colors.grey[800]),
                                           ),
-                                        )
-                                        // GestureDetector(
-                                        //   onTap: () {
-
-                                        //   },
-
-                                        // ),
-                                        ),
+                                        )),
                                   ],
                                 ),
                               ),
@@ -302,6 +293,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               child: CustomButton(
                                 buttonText: 'Submit',
                                 onPressed: () {
+                                  ShowInterstitialAd().showAd(context);
                                   try {
                                     setData(
                                       firstNameController.text,
@@ -321,6 +313,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                 radius: 20,
                               ),
                             ),
+                            const ShowBannerAd()
                           ],
                         ),
                       ),

@@ -1,21 +1,16 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:haba/routes/appRouter.dart';
-import 'package:haba/services/data/sharedPreferences.dart';
-import 'package:haba/utils/widgets/custom_textfield.dart';
-import 'package:haba/utils/AppTheme.dart';
 import 'package:haba/utils/colors.dart';
 import 'package:haba/utils/widgets/translucentBG.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../utils/TextStyles.dart';
+import '../../utils/ads_widgets/ads_widget.dart';
 import '../../utils/widgets/custom_button.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
@@ -53,7 +48,7 @@ class _OTPScreenState extends State<OTPScreen> {
     generateNumber();
     startTimer();
     Future.delayed(
-      Duration(seconds: 3),
+      const Duration(seconds: 3),
       () {
         setState(() {
           _code = generatedNumber!;
@@ -68,7 +63,7 @@ class _OTPScreenState extends State<OTPScreen> {
   int remainingSeconds = 30;
   Timer? timer;
   void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
       setState(() {
         if (remainingSeconds > 0) {
           remainingSeconds--;
@@ -208,6 +203,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       child: CustomButton(
                         buttonText: 'Submit',
                         onPressed: () {
+                          ShowInterstitialAd().showAd(context);
                           Navigator.pushNamed(context, AppRouter.login);
                         },
                         width: MediaQuery.of(context).size.width * .9,
@@ -215,6 +211,8 @@ class _OTPScreenState extends State<OTPScreen> {
                         radius: 20,
                       ),
                     ),
+                    const ShowBannerAd(),
+                    // ShowInterstitialAd().showAd(context);
                     const Spacer(),
                   ],
                 ))),

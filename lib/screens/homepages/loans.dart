@@ -10,6 +10,6 @@ class Loans extends StatefulWidget {
 class _LoansState extends State<Loans> {
   @override
   Widget build(BuildContext context) {
-  return Scaffold(body: Container(child: Text('Loans')));
+  return Scaffold(body: Container(child: const Text('Loans')));
   }
 }

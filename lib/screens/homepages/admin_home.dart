@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:haba/utils/colors.dart';
-import 'package:haba/utils/widgets/homeContainers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../routes/appRouter.dart';
 import '../../utils/TextStyles.dart';
+import '../../utils/ads_widgets/ads_widget.dart';
 import '../../utils/widgets/adminHomeContainers.dart';
 import '../../utils/widgets/headerContainer.dart';
 
@@ -51,8 +51,8 @@ class _AdminHomeState extends State<AdminHome> {
               onTap: () {
                 Navigator.pushNamed(context, AppRouter.login);
               },
-              leading: Icon(Icons.person),
-              title: Text('Log Out'),
+              leading: const Icon(Icons.person),
+              title: const Text('Log Out'),
             ),
           ],
         )),
@@ -98,7 +98,7 @@ class _AdminHomeState extends State<AdminHome> {
 
               // Quick Links
               SingleChildScrollView(
-                child: Container(
+                child: SizedBox(
                   // color: Colors.red,
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width * .9,
@@ -117,7 +117,13 @@ class _AdminHomeState extends State<AdminHome> {
                           height: 20,
                         ),
                         // HomeContainers
-                        const AdminHomeContainers()
+                        GestureDetector(
+                            onTap: () {
+                              ShowInterstitialAd().showAd(context);
+                            },
+                            child: const AdminHomeContainers()),
+
+                        const ShowBannerAd()
                       ],
                     ),
                   ),

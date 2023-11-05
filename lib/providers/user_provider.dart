@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:haba/models/user.dart';
- 
 
 class UserProvider extends ChangeNotifier {
   User? _user;

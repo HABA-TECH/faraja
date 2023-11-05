@@ -1,10 +1,13 @@
+import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
 import 'package:haba/routes/appRouter.dart';
+import 'package:haba/services/ads/ad_config.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:haba/utils/paddingUtil.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../utils/ads_widgets/ads_widget.dart';
 import '../../utils/colors.dart';
 import '../../utils/widgets/custom_textfield.dart';
 
@@ -79,7 +82,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
             style: TextStyle(
               color: _currentStep == stepsNumber ? Colors.black : Colors.grey,
             ),
-          )
+          ),
         ],
       ),
     );
@@ -94,6 +97,8 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
   @override
   void initState() {
     super.initState();
+    const ShowBannerAd();
+
     loadData();
   }
 
@@ -327,7 +332,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                     padding: const EdgeInsets.only(top: 15),
                                     child: CustomTextField(
                                       text: 'First Name',
-                                      hintText: "$firstName",
+                                      hintText: firstName,
                                       color: AppColors.greyPAGEBLUE,
                                       controller: educationController,
                                       inputType: TextInputType.text,
@@ -341,7 +346,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                     padding: const EdgeInsets.only(top: 15),
                                     child: CustomTextField(
                                       text: 'Last Name',
-                                      hintText: "$lastName",
+                                      hintText: lastName,
                                       color: AppColors.greyPAGEBLUE,
                                       controller: employmentController,
                                       inputType: TextInputType.text,
@@ -373,7 +378,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                                       picked.toString());
 
                                               print(
-                                                  'FORMATTEDdATE ${formattedDate}');
+                                                  'FORMATTEDdATE $formattedDate');
 
                                               _selectedDate = picked;
                                             });
@@ -407,7 +412,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                         )),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15,
                                 ),
                                 Align(
@@ -483,7 +488,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15,
                                 ),
                                 Align(
@@ -581,15 +586,28 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
         child: ElevatedButton(
           onPressed: loopDone
               ? null
-              : () {
+              : () async {
                   isFilled == true
                       ? setState(() {
                           _currentStep++;
+                          print('Next step: ');
+                          ShowInterstitialAd().showAd(context);
+
                           if (_currentStep > 2) {
                             _currentStep = 0;
                             loopDone = true;
 
-                            Navigator.pushNamed(context, AppRouter.loanOffers);
+                            FacebookInterstitialAd.loadInterstitialAd(
+                              placementId: AdConfig.interstitialPlacementID,
+                              listener: (result, value) {
+                                if (result == InterstitialAdResult.LOADED) {
+                                  FacebookInterstitialAd.showInterstitialAd(
+                                      delay: 5000);
+                                }
+                              },
+                            ).then((value) => Navigator.pushNamed(
+                                context, AppRouter.loanOffers));
+
                             setState(() {
                               isFilled == false;
                             });
@@ -607,7 +625,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
               ),
               backgroundColor: _currentStep == 2
                   ? AppColors.greyPAGEBLUE
-                  : Color.fromARGB(
+                  : const Color.fromARGB(
                       255, 146, 145, 215), // Change the color as needed
               foregroundColor: Colors.white, // Change the color as needed
               padding: const EdgeInsets.all(16), // Change the padding as needed
@@ -622,7 +640,7 @@ class _PersonalInfoHomeState extends State<PersonalInfoHome> {
             alignment: Alignment.center,
             child: Text(
               _currentStep == 2 ? 'Submit' : 'Next',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
               ),
             ),

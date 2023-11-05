@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:haba/routes/appRouter.dart';
 import 'package:haba/utils/colors.dart';
 import 'package:haba/utils/widgets/doublesidedContainer.dart';
-import 'package:sliver_app_bar_builder/sliver_app_bar_builder.dart';
 
 import '../TextStyles.dart';
+import '../ads_widgets/ads_widget.dart';
 
 class HeaderContainer extends StatefulWidget {
   final double? height;
@@ -34,7 +34,7 @@ class _HeaderContainerState extends State<HeaderContainer> {
             ),
           ),
           child: Padding(
-            padding: EdgeInsets.only(left: 17, right: 10),
+            padding: const EdgeInsets.only(left: 17, right: 10),
             child:
                 // TEXT
                 Column(
@@ -134,6 +134,8 @@ class _HeaderContainerState extends State<HeaderContainer> {
               ),
               GestureDetector(
                 onTap: () {
+              
+                      ShowInterstitialAd().showAd(context);
                   Navigator.of(context).pushNamed(AppRouter.personalInfoHome);
                 },
                 child: const Align(
@@ -182,7 +184,7 @@ class _AdminHeaderContainerState extends State<AdminHeaderContainer> {
             ),
           ),
           child: Padding(
-            padding: EdgeInsets.only(left: 17, right: 10),
+            padding: const EdgeInsets.only(left: 17, right: 10),
             child:
                 // TEXT
                 Column(

@@ -2,13 +2,11 @@ import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:haba/utils/TextStyles.dart';
 import 'package:haba/utils/paddingUtil.dart';
-import 'package:haba/utils/widgets/doublesidedContainer.dart';
 import 'package:haba/utils/widgets/profileContainer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../routes/appRouter.dart';
 import '../../utils/colors.dart';
-import '../../utils/widgets/custom_textfield.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -44,21 +42,22 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    String firstNameInitial = firstName.substring(0, 1);
-    String lastNameInitial = lastName.substring(0, 1);
-
+    String firstNameInitial =
+        firstName.isNotEmpty ? firstName.substring(0, 1) : '';
+    String lastNameInitial =
+        lastName.isNotEmpty ? lastName.substring(0, 1) : '';
     String initials = "$firstNameInitial$lastNameInitial";
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.grey[200],
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            // Navigator.pop(context);
-          },
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back, color: Colors.black),
+        //   onPressed: () {
+        //     // Navigator.pop(context);
+        //   },
+        // ),
       ),
       body: SingleChildScrollView(
         child: Stack(
@@ -94,7 +93,8 @@ class _ProfileState extends State<Profile> {
                           borderWidth: 5, // sets border, default 0.0
                           initialsText: Text(
                             initials,
-                            style: TextStyle(fontSize: 40, color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: 40, color: Colors.white),
                           ), // sets initials text, set your own style, default Text('')
                           borderColor: AppColors
                               .greyPAGEBLUE!, // sets border color, default Colors.white
@@ -142,25 +142,34 @@ class _ProfileState extends State<Profile> {
                     const SizedBox(
                       height: 10,
                     ),
-                    ProfileContainer(
-                        onPressed: () {},
-                        buttonText: 'Invite Friends',
-                        icon: Icon(Icons.people, color: Colors.grey[800])),
+                    Visibility(
+                      visible: false,
+                      child: ProfileContainer(
+                          onPressed: () {},
+                          buttonText: 'Invite Friends',
+                          icon: Icon(Icons.people, color: Colors.grey[800])),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
-                    ProfileContainer(
-                        onPressed: () {},
-                        buttonText: 'Account Security',
-                        icon: Icon(Icons.lock, color: Colors.grey[800])),
+                    Visibility(
+                      visible: false,
+                      child: ProfileContainer(
+                          onPressed: () {},
+                          buttonText: 'Account Security',
+                          icon: Icon(Icons.lock, color: Colors.grey[800])),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
-                    ProfileContainer(
-                        onPressed: () {},
-                        buttonText: 'Help and Feedback',
-                        icon:
-                            Icon(Icons.message_sharp, color: Colors.grey[800])),
+                    Visibility(
+                      visible: false,
+                      child: ProfileContainer(
+                          onPressed: () {},
+                          buttonText: 'Help and Feedback',
+                          icon: Icon(Icons.message_sharp,
+                              color: Colors.grey[800])),
+                    ),
                     const SizedBox(
                       height: 10,
                     )
